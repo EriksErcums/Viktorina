@@ -1,0 +1,31 @@
+# ======================
+# CLion & CMake Projects
+# ======================
+
+# IDE settings (CLion)
+.idea/
+*.iml
+
+# Build directories
+cmake-build-*/
+build/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+compile_commands.json
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Executables / binaries
+*.exe
+*.out
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
