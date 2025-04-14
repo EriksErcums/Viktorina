@@ -14,7 +14,7 @@ private:
 public:
     Speletajs(int Id = -1, std::string lv = "NA", std::string p = "NA") : Lietotajs(Id, lv, p) {loma = "Speletajs";}
 
-    ~Speletajs() {}
+    ~Speletajs() override = default;
 
     std::string getLoma() override {return loma;}
 
