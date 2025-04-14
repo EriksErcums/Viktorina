@@ -5,9 +5,8 @@ Darba audtori: Patriks Kulinskis , Elvijs Gorbunovs, Ēriks Ercums
 
 Projekta uzdevuma vispārējās prasības. 
 
-Studiju projekts kursā "Objetorientētā programmēšana"
 
-Projektu izstrādā komanda 2-4 studentu sastāvā. Programmatūras izstrādei komanda var izvēlēties izstrādes rīkus pēc saviem ieskatiem.
+Programmatūras izstrādei komanda var izvēlēties izstrādes rīkus pēc saviem ieskatiem.
 
 Uzdevums A. Izveidot lietotāju pārvaldības sistēmu izglītojošas spēles programmatūras sistēmai. Tajā jāiestrādā objektu klases un funkcijas, kas nodrošina:
 
