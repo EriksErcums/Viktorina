@@ -16,6 +16,7 @@ public:
     bool saturCiparu(const std::string& parole);
     void dzestLietotaju();
     void dzestLietotajuDB(int id);
+    void saglabatLietotajuDB(int id, const std::string& lv, const std::string& p, const std::string& l);
     //TODO: void saglabatLietotajuDB(int id, std::string lietotajvards, std::string parole, std::string loma);
     void apskatitLietotajus() {
         std::cout << "Izveidotie lietotāji:\n";

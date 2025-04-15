@@ -1,6 +1,7 @@
 #include "LietotajuParvaldnieks.h"
 #include "Redaktors.h"
 #include "Speletajs.h"
+#include "sqlite3.h"
 
 #include <iostream>
 #include <string>
@@ -72,6 +73,11 @@ void LietotajuParvaldnieks::dzestLietotaju() {
 void LietotajuParvaldnieks::dzestLietotajuDB(int id) {
 
 }
+
+void LietotajuParvaldnieks::saglabatLietotajuDB(int id, const string& lv, const string& p, const string& l) {
+
+}
+
 
 
 
