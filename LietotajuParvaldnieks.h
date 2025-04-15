@@ -14,9 +14,13 @@ public:
     void izveidotProfilu();
     bool saturLieloBurtu(const std::string& parole);
     bool saturCiparu(const std::string& parole);
-    //TODO: void dzestLietotaju();
+    void dzestLietotaju();
+    void dzestLietotajuDB(int id);
     //TODO: void saglabatLietotajuDB(int id, std::string lietotajvards, std::string parole, std::string loma);
-    //TODO: void apskatitLietotajus() {}
+    void apskatitLietotajus() {
+        std::cout << "Izveidotie lietotāji:\n";
+        for (Lietotajs* lietotajs : lietotaji) lietotajs->printInfo();
+    }
 };
 
 #endif

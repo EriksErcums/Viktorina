@@ -55,5 +55,25 @@ bool LietotajuParvaldnieks::saturCiparu(const string& parole) {
     return false;
 }
 
+void LietotajuParvaldnieks::dzestLietotaju() {
+    int id;
+    apskatitLietotajus();
+    cout << "Ievadi lietotāja ID, kuru vēlies dzēst: ";
+    cin >> id;
+    for (auto it = lietotaji.begin(); it != lietotaji.end(); ++it) {
+        if ((*it)->getId() == id) {
+            it = lietotaji.erase(it);
+            //dzestLietotajuDB(id);
+        }
+    }
+    cout << "Lietotājs ar ID " << id << " tika izdzēsts\n";
+}
+
+void LietotajuParvaldnieks::dzestLietotajuDB(int id) {
+
+}
+
+
+
 
 
