@@ -1,6 +1,7 @@
 #ifndef LIETOTAJS_H
 #define LIETOTAJS_H
 
+#include <iostream>
 #include <string>
 
 class Lietotajs {
@@ -22,6 +23,8 @@ public:
     void setId(const int Id) {id = Id;}
     void setLietotajvards(const std::string &lv) {lietotajvards = lv;}
     void setParole(const std::string &p) {parole = p;}
+
+    void printInfo() {std::cout << "ID: " << id << ", Lietotājvārds: " << lietotajvards << ", Loma: " << getLoma() << "\n";}
 };
 
 #endif
