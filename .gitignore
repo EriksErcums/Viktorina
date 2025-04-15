@@ -29,3 +29,6 @@ Thumbs.db
 *.dll
 *.so
 *.dylib
+
+# VSCode settings
+.vscode/
