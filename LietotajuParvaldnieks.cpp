@@ -1,7 +1,8 @@
 #include "LietotajuParvaldnieks.h"
 #include "Redaktors.h"
 #include "Speletajs.h"
-#include "sqlite3.h"
+#include "sqlite3/sqlite3.h"
+#include "bcrypt/bcrypt.h"
 
 #include <iostream>
 #include <string>
@@ -61,13 +62,25 @@ void LietotajuParvaldnieks::dzestLietotaju() {
     apskatitLietotajus();
     cout << "Ievadi lietotāja ID, kuru vēlies dzēst: ";
     cin >> id;
-    for (auto it = lietotaji.begin(); it != lietotaji.end(); ++it) {
+
+    bool izdzests = false;
+    for (auto it = lietotaji.begin(); it != lietotaji.end();) {
         if ((*it)->getId() == id) {
+            delete *it;
             it = lietotaji.erase(it);
             dzestLietotajuDB(id);
+            izdzests = true;
+            break;
+        } else {
+            ++it;
         }
     }
-    cout << "Lietotājs ar ID " << id << " tika izdzēsts\n";
+
+    if (izdzests) {
+        cout << "Lietotājs ar ID " << id << " tika izdzēsts\n";
+    } else {
+        cout << "Lietotājs ar ID " << id << " netika atrasts\n";
+    }
 }
 
 void LietotajuParvaldnieks::dzestLietotajuDB(int id) {
@@ -123,9 +136,9 @@ void LietotajuParvaldnieks::saglabatLietotajuDB(const int id, const string& lv, 
         sqlite3_close(db);
         return;
     }
-
+    string hashedP = bcrypt::generateHash(p);
     string insertSQL = "INSERT INTO lietotaji (id, lietotajvards, parole, loma) VALUES (" +
-                       to_string(id) + ", '" + lv + "', '" + p + "', '" + l + "');";
+                       to_string(id) + ", '" + lv + "', '" + hashedP + "', '" + l + "');";
 
     rc = sqlite3_exec(db, insertSQL.c_str(), nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {

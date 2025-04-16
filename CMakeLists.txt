@@ -12,7 +12,9 @@ add_executable(Viktorina
         Redaktors.h
         LietotajuParvaldnieks.cpp
         LietotajuParvaldnieks.h
-        sqlite3.c
+        sqlite3/sqlite3.c
+        bcrypt/bcrypt.cpp
+        bcrypt/blowfish.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
