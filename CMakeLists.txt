@@ -15,6 +15,8 @@ add_executable(Viktorina
         sqlite3/sqlite3.c
         bcrypt/bcrypt.cpp
         bcrypt/blowfish.cpp
+        Spele.cpp 
+        Spele.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
