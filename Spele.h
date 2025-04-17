@@ -23,7 +23,7 @@ public:
     void pievienotJautajumu(const Jautajums& jautajums){
         jautajumi.push_back(jautajums);
     }
-    
+
     int getRezultats() {return rezultats;}
     std::string getNosaukums() {return nosaukums;}
     int getMaxPunkti() {return maxPunkti;}
