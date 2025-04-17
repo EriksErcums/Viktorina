@@ -29,7 +29,7 @@ void LietotajuParvaldnieks::izveidotProfilu() {
         if (l != "Spēlētājs" && l != "Redaktors") cout << "Lietotājam jābūt vai nu spēlētājam vai arī redaktoram!\n";
 
     } while (lv.length() < 3 || lv.length() > 20 || p.length() < 8 || (!saturCiparu(p) || !saturLieloBurtu(p)) || l != "Spēlētājs" && l != "Redaktors");
-    pedejaisID++;
+    pedejaisID = dabutPedejoId() + 1;
 
     if (l == "Spēlētājs") {
         lietotaji.push_back(new Speletajs(pedejaisID, lv, p));
@@ -121,22 +121,7 @@ void LietotajuParvaldnieks::saglabatLietotajuDB(const int id, const string& lv, 
         return;
     }
 
-    // Izveido tabulu, ja neeksistē
-    string izveidotTabulu =
-        "CREATE TABLE IF NOT EXISTS lietotaji ("
-        "id INTEGER PRIMARY KEY, "
-        "lietotajvards TEXT NOT NULL, "
-        "parole TEXT NOT NULL, "
-        "loma TEXT NOT NULL);";
-
-    rc = sqlite3_exec(db, izveidotTabulu.c_str(), nullptr, nullptr, &errMsg);
-    if (rc != SQLITE_OK) {
-        cerr << "Radās Kļūda veidojot tabulu: " << errMsg << endl;
-        sqlite3_free(errMsg);
-        sqlite3_close(db);
-        return;
-    }
-    string hashedP = bcrypt::generateHash(p);
+    string hashedP = bcrypt::generateHash(p);  // sašifrē(hash) paroli
     string insertSQL = "INSERT INTO lietotaji (id, lietotajvards, parole, loma) VALUES (" +
                        to_string(id) + ", '" + lv + "', '" + hashedP + "', '" + l + "');";
 
@@ -148,6 +133,100 @@ void LietotajuParvaldnieks::saglabatLietotajuDB(const int id, const string& lv, 
 
     sqlite3_close(db);
 }
+
+int LietotajuParvaldnieks::dabutPedejoId() {
+    sqlite3* db;
+    sqlite3_stmt* stmt;
+    int rc;
+    int maxID = 0;
+
+    rc = sqlite3_open("lietotaji.db", &db);
+
+    if (rc) {
+        cerr << "Neizdevās atvērt datubāzi: " << sqlite3_errmsg(db) << endl;
+        return 0;
+    }
+
+    string sql = "SELECT MAX(id) FROM lietotaji;";
+    rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
+
+    if (rc == SQLITE_OK) {
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            maxID = sqlite3_column_int(stmt, 0);
+        }
+    } else {
+        cerr << "Radās kļūda vaicājumā: " << sqlite3_errmsg(db) << endl;
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+
+    return maxID;
+}
+
+void LietotajuParvaldnieks::izveidotDB() {
+    sqlite3* db;
+    char* errMsg;
+    int rc = sqlite3_open("lietotaji.db", &db);
+    if (rc) {
+        cerr << "Nevar atvērt datubāzi: " << sqlite3_errmsg(db) << endl;
+        return;
+    }
+
+    string izveidotTabulu =
+        "CREATE TABLE IF NOT EXISTS lietotaji ("
+        "id INTEGER PRIMARY KEY, "
+        "lietotajvards TEXT NOT NULL, "
+        "parole TEXT NOT NULL, "
+        "loma TEXT NOT NULL);";
+
+    rc = sqlite3_exec(db, izveidotTabulu.c_str(), nullptr, nullptr, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "Kļūda veidojot tabulu: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    }
+
+    sqlite3_close(db);
+}
+
+void LietotajuParvaldnieks::ieladetLietotajusNoDB() {
+    sqlite3* db;
+    sqlite3_stmt* stmt;
+
+    int rc = sqlite3_open("lietotaji.db", &db);
+    if (rc) {
+        cerr << "Neizdevās atvērt datubāzi: " << sqlite3_errmsg(db) << endl;
+        return;
+    }
+
+    string sql = "SELECT id, lietotajvards, parole, loma FROM lietotaji;";
+    rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        cerr << "Radās kļūda nolasot lietotājus no datubāzes: " << sqlite3_errmsg(db) << endl;
+        sqlite3_close(db);
+        return;
+    }
+
+    lietotaji.clear();
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int id = sqlite3_column_int(stmt, 0);
+        string lietotajvards = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        string parole = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        string loma = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+
+        if (loma == "Speletajs") {
+            lietotaji.push_back(new Speletajs(id, lietotajvards, parole));
+        } else if (loma == "Redaktors") {
+            lietotaji.push_back(new Redaktors(id, lietotajvards, parole));
+        }
+    }
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+}
+
+
+
 
 
 
