@@ -5,27 +5,31 @@
 #include <vector>
 #include "Jautajums.h"
 
-using namespace std;
-
 class Spele {
+
 private:
     int spelesID;
-    string nosaukums;
+    std::string nosaukums;
     int maxPunkti;
-    int rezultats;
-    string grutibasLimenis;
-    vector<Jautajums> jautajumi;
+    int rezultats = 0;
+    std::string grutibasLimenis;
+    std::vector<Jautajums> jautajumi;
 
 public:
-    Spele(int id, string nosaukums, int maxPunkti, string limenis);
+    Spele(int id, const std::string &Nosaukums, const int maxP, const std::string &limenis)
+    : spelesID(id), nosaukums(Nosaukums), maxPunkti(maxP), grutibasLimenis(limenis) {}
 
     void saktSpeli();
-    void pievienotJautajumu(Jautajums jautajums);
-    int getRezultats();
-    string getNosaukums();
-    int getMaxPunkti();
-    string getGrutibasLimenis();
-    int getJautajumuSkaits();
+    void pievienotJautajumu(const Jautajums& jautajums){
+        jautajumi.push_back(jautajums);
+    }
+    
+    int getRezultats() {return rezultats;}
+    std::string getNosaukums() {return nosaukums;}
+    int getMaxPunkti() {return maxPunkti;}
+    std::string getGrutibasLimenis() {return grutibasLimenis;}
+    int getJautajumuSkaits() {return jautajumi.size();}
+    int getId() {return spelesID;}
 };
 
 #endif
