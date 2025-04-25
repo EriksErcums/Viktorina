@@ -10,6 +10,7 @@ class SpelesProtokols{
 
 private:
     int speletajaID;
+    std::string lietotajvards;
     Spele* spele = nullptr;
     std::string sakums;
     std::string beigas;
@@ -18,12 +19,18 @@ private:
 
     std::string iegutLaiku();
 public:
-    SpelesProtokols(Spele* spele, int id = -1) : speletajaID(id), spele(spele), sakums(iegutLaiku()) {}
+    SpelesProtokols(Spele* spele, int id = -1, std::string vards = "NA")
+     : speletajaID(id), lietotajvards(vards), spele(spele), sakums(iegutLaiku()) {}
 
     void setIegutiePunkti(int punkti) { iegutiePunkti = punkti; };
     void pievienotDarbibu(std::string darbiba) { veiktasDarbibas.push_back(darbiba);};
     void spelesBeigas() { beigas = iegutLaiku(); };
 
+    int getSpeletajaID() { return speletajaID; }
+    std::string getLietotajvardu() { return lietotajvards; }
+    std::string getSakums() { return sakums; }
+    std::string getBeigas() { return beigas; }
+    int getPunkti() { return iegutiePunkti; }
 };
 
 #endif
