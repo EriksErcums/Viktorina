@@ -16,8 +16,8 @@ private:
     std::vector<Jautajums> jautajumi;
 
 public:
-    Spele(int id, const std::string &Nosaukums, const int maxP, const std::string &limenis)
-    : spelesID(id), nosaukums(Nosaukums), maxPunkti(maxP), grutibasLimenis(limenis) {}
+    Spele(int id, const std::string &Nosaukums, const int maxP, const std::string &limenis, const std::vector<Jautajums>& jautajumi)
+    : spelesID(id), nosaukums(Nosaukums), maxPunkti(maxP), grutibasLimenis(limenis), jautajumi(jautajumi) {}
 
     void saktSpeli();
     void pievienotJautajumu(const Jautajums& jautajums){
