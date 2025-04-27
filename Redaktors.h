@@ -10,7 +10,7 @@
 class Redaktors : public Lietotajs{
 
 private:
-    std::vector<Spele*> izveidotasSpeles;
+    std::vector<Spele> izveidotasSpeles;
 
 public:
     Redaktors(int Id = -1, std::string lv = "NA", std::string p = "NA") : Lietotajs(Id, lv, p) {loma = "Redaktors";}
