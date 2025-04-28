@@ -23,12 +23,17 @@ public:
     void apskatitIzveidotasSpeles() {
         if (!izveidotasSpeles.empty()) {
             for (Spele s : izveidotasSpeles) {
-                std::cout << s.getNosaukums() << "\n";
+                std::cout << "ID: " <<  s.getId() << "\n";
+                std::cout << "Nosaukums: " << s.getNosaukums() << "\n";
+                std::cout << "Jautājumu skaits: " << s.getJautajumuSkaits() << "\n";
+                std::cout << "Maksimālais punktu skaits: " << s.getMaxPunkti() << "\n";
+                std::cout << "Grūtības līmenis: " << s.getGrutibasLimenis() << "\n";
             }
         }
         else std::cout << "Tu neesi izveidojis nevienu spēli.\n";
     }
     void pievienotJautajumu();
+    Jautajums pievienot_jautajums_helper(int i);
     void dzestJautajumu();
 };
 

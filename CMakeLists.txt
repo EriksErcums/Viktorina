@@ -19,7 +19,6 @@ add_executable(Viktorina
         Spele.h
         Jautajums.cpp
         SpelesProtokols.cpp
-        main.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

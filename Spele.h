@@ -23,6 +23,7 @@ public:
     void pievienotJautajumu(const Jautajums& jautajums){
         jautajumi.push_back(jautajums);
     }
+    void pievienotJaut(std::vector<Jautajums> jaut) {jautajumi.insert(jautajumi.end(), jaut.begin(), jaut.end());}
 
     int getRezultats() {return rezultats;}
     std::string getNosaukums() {return nosaukums;}
