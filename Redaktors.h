@@ -35,6 +35,7 @@ public:
     void pievienotJautajumu();
     Jautajums pievienot_jautajums_helper(int i);
     void dzestJautajumu();
+    void redigetJautajumu();
 };
 
 #endif

@@ -6,25 +6,21 @@ using namespace std;
 
 void Redaktors::izveidotSpeli() {
     string nosaukums, grutibaslimenis, jautajums, atbilde;
-    int maxp, jautaumuSk, spelesId;
+    int maxp, jautSk, spelesId;
     vector<string> atbildes;
     vector<Jautajums> jautajumi;
 
     do {
         cout << "Ievadi spēles nosaukumu: ";
         getline(cin, nosaukums);
-        if (nosaukums.empty()) {
-            cout << "Ievadi derīgu spēles nosaukumu!\n";
-        }
+        if (nosaukums.empty()) cout << "Ievadi derīgu spēles nosaukumu!\n";
     } while (nosaukums.empty());
 
     do {
         cout << "Ievadi spēles maksimālo punktu skaitu: ";
         cin >> maxp;
         cin.ignore();
-        if (maxp < 1) {
-            cout << "Punktu skaitam jābūt pozitīvam!\n";
-        }
+        if (maxp < 1) cout << "Punktu skaitam jābūt pozitīvam!\n";
     } while (maxp < 1);
 
     do {
@@ -38,14 +34,12 @@ void Redaktors::izveidotSpeli() {
 
     do {
         cout << "Cik jautājumi būs spēlei?: ";
-        cin >> jautaumuSk;
+        cin >> jautSk;
         cin.ignore();
-        if (jautaumuSk < 1) {
-            cout << "Spēlei ir jāsastāv no vismaz 1 jautājuma\n";
-        }
-    } while (jautaumuSk < 1);
+        if (jautSk < 1) cout << "Spēlei ir jāsastāv no vismaz 1 jautājuma\n";
+    } while (jautSk < 1);
 
-    for (int i = 1; i <= jautaumuSk; i++) {
+    for (int i = 1; i <= jautSk; i++) {
         jautajumi.push_back(pievienot_jautajums_helper(i));
     }
 
@@ -63,41 +57,62 @@ void Redaktors::izveidotSpeli() {
 void Redaktors::pievienotJautajumu() {
 
     if (!izveidotasSpeles.empty()) {
-    apskatitIzveidotasSpeles();
+        apskatitIzveidotasSpeles();
 
-    int spelesID, jautajumuSk;
-    vector<Jautajums> jautajumi;
-    do {
-        cout << "Kurai spēlei vēlies pievienot jautājumu? (Ievadi spēles ID): ";
-        cin >> spelesID;
+        int spelesID, jautajumuSk;
+        vector<Jautajums> jautajumi;
+
+        bool derigsID = false;
+        do {
+            cout << "Kurai spēlei vēlies pievienot jautājumu? (Ievadi spēles ID): ";
+            cin >> spelesID;
+            cin.ignore();
+
+            for (Spele& s : izveidotasSpeles) {
+                if (s.getId() == spelesID) {
+                    derigsID = true;
+                    break;
+                }
+            }
+
+            if (!derigsID) {
+                cout << "Ievadi derīgu spēles ID!\n";
+            }
+
+        } while (!derigsID);
+
+        do {
+            cout << "Cik jautājumu pievienosi?: ";
+            cin >> jautajumuSk;
+            cin.ignore();
+            if (jautajumuSk < 1) cout << "Tu nevari pievienot mazāk kā 1 jautājumu!\n";
+        } while (jautajumuSk < 1);
+
+        for (int i = 1; i <= jautajumuSk; i++) {
+            jautajumi.push_back(pievienot_jautajums_helper(i));
+        }
+
         for (Spele& s : izveidotasSpeles) {
             if (s.getId() == spelesID) {
-                cout << "Cik jautājums pievienosi?: ";
-                cin >> jautajumuSk;
-                cin.ignore();
-
-                for (int i = 1; i <= jautajumuSk; i++)
-                {
-                    jautajumi.push_back(pievienot_jautajums_helper(i));
-                }
-                if (!jautajumi.empty()) s.pievienotJaut(jautajumi);
+                s.pievienotJaut(jautajumi);
                 break;
             }
         }
 
-        if (jautajumi.empty()) cout << "Spēlei ir jāsastāv no vismaz 1 jautājuma\n";
-        if (spelesID < 1 || spelesID > izveidotasSpeles.size()) cout << "Ievadi derīgu spēles ID!\n";
-
-
-        } while (spelesID < 1 || spelesID > izveidotasSpeles.size() || jautajumi.empty());
     }
-    else cout << "Nav izveidota neviena spēle!\n";
+    else {
+        cout << "Nav izveidota neviena spēle!\n";
+    }
 }
-
 
 void Redaktors::dzestJautajumu() {
 
 }
+
+void Redaktors::redigetJautajumu() {
+
+}
+
 
 Jautajums Redaktors::pievienot_jautajums_helper(const int i) {
     string jautajums, atbilde;
