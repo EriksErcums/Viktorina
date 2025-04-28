@@ -100,26 +100,18 @@ void Redaktors::pievienotJautajumu() {
         }
 
     }
-    else {
-        cout << "Nav izveidota neviena spēle!\n";
-    }
+    else cout << "Nav izveidota neviena spēle!\n";
 }
-
-void Redaktors::dzestJautajumu() {
-
-}
-
-void Redaktors::redigetJautajumu() {
-
-}
-
 
 Jautajums Redaktors::pievienot_jautajums_helper(const int i) {
     string jautajums, atbilde;
     int atbilzuSk, pareizaAtb;
     vector<string> atbildes;
-    cout << "Ievadi " << i << ". jautājumu: ";
-    getline(cin, jautajums);
+    do {
+        cout << "Ievadi " << i << ". jautājumu: ";
+        getline(cin, jautajums);
+        if (jautajums.empty()) cout << "Jautājums nevar būt tukšs!\n";
+    } while (jautajums.empty());
 
     do {
         cout << "Cik atbilžu varianti būs jautājumam?: ";
@@ -145,5 +137,39 @@ Jautajums Redaktors::pievienot_jautajums_helper(const int i) {
     } while (pareizaAtb < 1 || pareizaAtb > atbilzuSk);
     return Jautajums(jautajums, atbildes, pareizaAtb - 1);
 }
+
+void Redaktors::dzestSpeli() {
+    if (!izveidotasSpeles.empty()) {
+        int id;
+        apskatitIzveidotasSpeles();
+
+        bool atrasts = false;
+        do {
+        cout << "Ievadi spēles ID, kuru vēlies dzēst: ";
+            cin >> id;
+        } while (id < 1 || id > izveidotasSpeles.size());
+
+        for (auto it = izveidotasSpeles.begin(); it != izveidotasSpeles.end(); ++it) {
+            if (it->getId() == id) {
+                izveidotasSpeles.erase(it);
+                cout << "Spēle tika veiksmīgi izdzēsta\n";
+                atrasts = true;
+                break;
+            }
+        }
+        if (!atrasts) cout << "Netika atrasta spēle ar šādu ID!\n";
+    }
+    else cout << "Nav izveidota neviena spēle!\n";
+}
+
+void Redaktors::redigetJautajumu() {
+
+}
+
+void Redaktors::dzestJautajumu() {
+
+}
+
+
 
 
