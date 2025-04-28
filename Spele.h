@@ -1,6 +1,7 @@
 #ifndef SPELE_H
 #define SPELE_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include "Jautajums.h"
@@ -20,9 +21,6 @@ public:
     : spelesID(id), nosaukums(Nosaukums), maxPunkti(maxP), grutibasLimenis(limenis), jautajumi(jautajumi) {}
 
     void saktSpeli();
-    void pievienotJautajumu(const Jautajums& jautajums){
-        jautajumi.push_back(jautajums);
-    }
     void pievienotJaut(std::vector<Jautajums> jaut) {jautajumi.insert(jautajumi.end(), jaut.begin(), jaut.end());}
 
     int getRezultats() {return rezultats;}
@@ -31,6 +29,11 @@ public:
     std::string getGrutibasLimenis() {return grutibasLimenis;}
     int getJautajumuSkaits() {return jautajumi.size();}
     int getId() {return spelesID;}
+    void getJautajumi() {
+        for (int i = 1; i <= jautajumi.size(); i++) {
+            std::cout << i << ". " << jautajumi[i].getTeksts() << "\n";
+        }
+    }
 };
 
 #endif

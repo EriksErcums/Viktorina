@@ -17,6 +17,7 @@ public:
     
     void paradiJautajumu();
     bool parbaudaJautajumu(int lietotajaAtbilde);
+    std::string getTeksts() {return teksts;}
 };
 
 #endif

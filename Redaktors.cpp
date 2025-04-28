@@ -163,7 +163,32 @@ void Redaktors::dzestSpeli() {
 }
 
 void Redaktors::redigetJautajumu() {
+    if (!izveidotasSpeles.empty()) {
+        apskatitIzveidotasSpeles();
+        bool derigsID = false;
+        int spelesId;
+        do {
+            cout << "Kuras spēles jautājumu/s vēlies rediģēt? (Ievadi spēles ID): ";
+            cin >> spelesId;
+            cin.ignore();
 
+            for (Spele& s : izveidotasSpeles) {
+                if (s.getId() == spelesId) {
+                    derigsID = true;
+                    cout << "Spēles jautājumi: \n";
+                    s.getJautajumi();
+                    
+                    break;
+                }
+            }
+
+            if (!derigsID) {
+                cout << "Ievadi derīgu spēles ID!\n";
+            }
+
+        } while (!derigsID);
+    }
+    else cout << "Nav izveidota neviena spēle!\n";
 }
 
 void Redaktors::dzestJautajumu() {
