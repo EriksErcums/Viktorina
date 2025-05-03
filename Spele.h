@@ -30,9 +30,17 @@ public:
     int getJautajumuSkaits() {return jautajumi.size();}
     int getId() {return spelesID;}
     void getJautajumi() {
-        for (int i = 1; i <= jautajumi.size(); i++) {
-            std::cout << i << ". " << jautajumi[i].getTeksts() << "\n";
+        for (int i = 0; i < jautajumi.size(); i++) {
+            std::cout << i + 1 << ". " << jautajumi[i].getTeksts() << "\n";
         }
+    }
+
+    Jautajums getJaut(int i) {
+        return jautajumi[i - 1];
+    }
+
+    void redigetJaut(int indekss, const std::string& jaunaisJaut, const std::vector<std::string>& atbildes, int pareizaAtb) {
+        jautajumi[indekss - 1].mainitJautajumu(jaunaisJaut, atbildes, pareizaAtb);
     }
 };
 

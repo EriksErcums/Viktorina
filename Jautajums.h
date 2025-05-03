@@ -1,6 +1,7 @@
 #ifndef JAUTAJUMS_H
 #define JAUTAJUMS_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -18,6 +19,19 @@ public:
     void paradiJautajumu();
     bool parbaudaJautajumu(int lietotajaAtbilde);
     std::string getTeksts() {return teksts;}
+    void setTeksts(const std::string &teksts) {this->teksts = teksts;}
+    void setAtbildes(const std::vector<std::string> &atbildes) {this->atbildes = atbildes;}
+
+    void getAtbildes() {
+        for (int i = 1; i <= atbildes.size(); i++) {
+            std::cout << i << ". atbilde: " <<  atbildes[i - 1] << "\n";
+        }
+    }
+    void mainitJautajumu(const std::string &jaunsJaut, const std::vector<std::string>& jaunasAtbildes, int pareizaAtb) {
+        teksts = jaunsJaut;
+        atbildes = jaunasAtbildes;
+        pareizaAtbilde = pareizaAtb;
+    }
 };
 
 #endif

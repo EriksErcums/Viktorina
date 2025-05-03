@@ -147,6 +147,7 @@ void Redaktors::dzestSpeli() {
         do {
         cout << "Ievadi spēles ID, kuru vēlies dzēst: ";
             cin >> id;
+            if (id < 1 || id > izveidotasSpeles.size()) cout << "Ievadi derīgu spēles ID!\n";
         } while (id < 1 || id > izveidotasSpeles.size());
 
         for (auto it = izveidotasSpeles.begin(); it != izveidotasSpeles.end(); ++it) {
@@ -163,10 +164,14 @@ void Redaktors::dzestSpeli() {
 }
 
 void Redaktors::redigetJautajumu() {
+
     if (!izveidotasSpeles.empty()) {
         apskatitIzveidotasSpeles();
         bool derigsID = false;
-        int spelesId;
+        int spelesId, indekss, atbilzuSk, jaunaPareizaAtb;
+        string jaunaisJaut, atbilde;
+        vector<string> atbildes;
+
         do {
             cout << "Kuras spēles jautājumu/s vēlies rediģēt? (Ievadi spēles ID): ";
             cin >> spelesId;
@@ -175,9 +180,48 @@ void Redaktors::redigetJautajumu() {
             for (Spele& s : izveidotasSpeles) {
                 if (s.getId() == spelesId) {
                     derigsID = true;
+                    cout << "Spēles nosaukums: " << s.getNosaukums() << "\n";
                     cout << "Spēles jautājumi: \n";
                     s.getJautajumi();
-                    
+                    do {
+                    cout << "Kuru jautājumu vēlies rediģēt? (Ievadi jautājuma numuru): ";
+                    cin >> indekss;
+                        cin.ignore();
+                        if (indekss < 1 || indekss > s.getJautajumuSkaits()) cout << "Izvēlies derīgu jautājumu!\n";
+                    } while (indekss < 1 || indekss > s.getJautajumuSkaits());
+                    cout << "Jautājuma atbildes: \n";
+                    s.getJaut(indekss).getAtbildes();
+
+                    do {
+                        cout << "Ievadi jauno jautājumu: ";
+                        getline(cin, jaunaisJaut);
+                        if (jaunaisJaut.empty()) cout << "Ievadi derīgu jautājumu!\n";
+                    } while (jaunaisJaut.empty());
+
+                    do {
+                        cout << "Cik atbilžu varianti būs jaunajam jautājumam?: ";
+                        cin >> atbilzuSk;
+                        cin.ignore();
+                        if (atbilzuSk < 1) cout << "Atbilžu skaitam jābūt vismaz 1!\n";
+
+                    } while (atbilzuSk < 1);
+
+                    for (int j = 1; j <= atbilzuSk; j++)
+                    {
+                        cout << "Ievadi " << j << ". atbildi: ";
+                        getline(cin, atbilde);
+                        atbildes.push_back(atbilde);
+                    }
+
+                    do {
+                        cout << "Ievadi pareizās atbildes indeksu (1 līdz " << atbilzuSk << "): ";
+                        cin >> jaunaPareizaAtb;
+                        cin.ignore();
+
+                        if (jaunaPareizaAtb < 1 || jaunaPareizaAtb > atbilzuSk) cout << "Nepareizs pareizās atbildes indekss! Mēģini vēlreiz.\n";
+                    } while (jaunaPareizaAtb < 1 || jaunaPareizaAtb > atbilzuSk);
+
+                    s.redigetJaut(indekss, jaunaisJaut, atbildes, jaunaPareizaAtb - 1);
                     break;
                 }
             }
