@@ -32,11 +32,18 @@ public:
         }
         else std::cout << "Tu neesi izveidojis nevienu spēli.\n";
     }
+
+    void spelettemporary() {
+        for (Spele s : izveidotasSpeles) {s.saktSpeli();} // velak izdzest
+    }
     void pievienotJautajumu();
     Jautajums pievienot_jautajums_helper(int i);
     void dzestJautajumu();
     void dzestSpeli();
     void redigetJautajumu();
+    int dabutSpelesId(const std::string& teksts);
+    int skaitluIevade(const std::string& teksts, int minVertiba);
+    std::string stringIevade(const std::string& teksts);
 };
 
 #endif

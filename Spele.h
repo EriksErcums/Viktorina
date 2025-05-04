@@ -35,12 +35,16 @@ public:
         }
     }
 
-    Jautajums getJaut(int i) {
+    Jautajums& getJaut(int i) {
         return jautajumi[i - 1];
     }
 
     void redigetJaut(int indekss, const std::string& jaunaisJaut, const std::vector<std::string>& atbildes, int pareizaAtb) {
         jautajumi[indekss - 1].mainitJautajumu(jaunaisJaut, atbildes, pareizaAtb);
+    }
+
+    void dzestJaut(int indekss) {
+        jautajumi.erase(jautajumi.begin() + (indekss - 1));
     }
 };
 
