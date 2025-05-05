@@ -1,5 +1,5 @@
 #include "SpelesProtokols.h"
-
+#include "Spele.h"
 #include <chrono>
 #include <ctime>
 #include <iomanip>
@@ -7,12 +7,26 @@
 
 using namespace std;
 
-string SpelesProtokols::iegutLaiku(){
+string SpelesProtokols::iegutLaiku() {
     auto laiks = chrono::system_clock::now();
     time_t laiksTagad = chrono::system_clock::to_time_t(laiks);
 
     ostringstream ls;
     ls << put_time(localtime(&laiksTagad), "%H:%M:%S");
-    
-    return  ls.str();
+
+    return ls.str();
+}
+
+Spele& SpelesProtokols::getSpele() {
+    return *spele;
+}
+
+void SpelesProtokols::printProtokoluInfo() {
+    cout << "Spēlētāja ID: " << getSpeletajaID() << "\n";
+    cout << "Spēlētāja lietotājvārds: " << getLietotajvardu() << "\n";
+    cout << "Spēlētā spēle: " << getSpele().getNosaukums() << "\n";
+    cout << "Spēles sākuma laiks: " << getSakums() << "\n";
+    cout << "Spēles beigu laiks: " << getBeigas() << "\n";
+    cout << "Iegūtie punkti par spēli: " << getPunkti() << " no " << getSpele().getMaxPunkti() << "\n";
+    // TODO: izdomat ka izdrukat veiktas darbibas lai nav viss vektors jadruka
 }

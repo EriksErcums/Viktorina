@@ -4,10 +4,9 @@
 
 using namespace std;
 
-void Spele::saktSpeli(){
+void Spele::saktSpeli(SpelesProtokols& protokols){
     rezultats = 0;
-    SpelesProtokols protokols(this);
-    int x = 1; //Jautajuma skaititajs
+    int x = 1; // Jautājumu skaitītājs
     string protokulaTeksts = "";
 
     cout << "Sākam spēli: " << nosaukums << endl << endl;
@@ -34,8 +33,8 @@ void Spele::saktSpeli(){
         x++;
     }
     protokols.spelesBeigas();
-    //TODO: Vaig kaut ka to protokolu kaut kur pievienot
 
     cout << "Spēle pabeigta! Tu ieguvi " << rezultats << " punktus no " << maxPunkti << "." << endl;
+    protokols.setIegutiePunkti(rezultats);
 }
 

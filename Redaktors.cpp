@@ -2,62 +2,12 @@
 #include <algorithm>
 #include <string>
 #include <limits>
+
+#include "PaligFunkcijas.h"
+#include "SpeluParvaldnieks.h"
 using namespace std;
 
-// Helper metodes:
-
-int Redaktors::dabutSpelesId(const string& teksts) {
-    int spelesID;
-
-    while (true) {
-        cout << teksts;
-        cin >> spelesID;
-
-        if (cin.fail()) {
-            cin.clear();  // Notīra error flagus
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Atmet visu pārējo ievades rindu, lai netruacē turpmākām ievadēm.
-            cout << "Ievadi veselu skaitli!\n";
-            continue;
-        }
-
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-        for (Spele& s : izveidotasSpeles) {
-            if (s.getId() == spelesID) {
-                return spelesID;
-            }
-        }
-
-        cout << "Ievadi derīgu spēles ID!\n";
-    }
-}
-
-int Redaktors::skaitluIevade(const string& teksts, int minVertiba) {
-    int vertiba;
-    do {
-        cout << teksts;
-        cin >> vertiba;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if (vertiba < minVertiba) {
-            cout << "Skaitlim jābūt vismaz " << minVertiba << "!\n";
-        }
-    } while (vertiba < minVertiba);
-    return vertiba;
-}
-
-string Redaktors::stringIevade(const string& teksts) {
-    string ievade;
-    do {
-        cout << teksts;
-        getline(cin, ievade);
-        if (ievade.empty()) {
-            cout << "Lauks nevar būt tukšs!\n";
-        }
-    } while (ievade.empty());
-    return ievade;
-}
-
-void Redaktors::izveidotSpeli() {
+void Redaktors::izveidotSpeli(SpeluParvaldnieks& parvaldnieks) {
     string nosaukums = stringIevade("Ievadi spēles nosaukumu: ");
     int maxp = skaitluIevade("Ievadi spēles maksimālo punktu skaitu: ", 1);
 
@@ -78,7 +28,9 @@ void Redaktors::izveidotSpeli() {
     }
 
     int spelesId = izveidotasSpeles.empty() ? 1 : izveidotasSpeles.back().getId() + 1;
-    izveidotasSpeles.push_back(Spele(spelesId, nosaukums, maxp, grutibaslimenis, jautajumi));
+    Spele spele(spelesId, nosaukums, maxp, grutibaslimenis, jautajumi);
+    izveidotasSpeles.push_back(spele);
+    parvaldnieks.pievienotSpeli(spele);
 }
 
 void Redaktors::pievienotJautajumu() {
@@ -88,7 +40,7 @@ void Redaktors::pievienotJautajumu() {
     }
 
     apskatitIzveidotasSpeles();
-    int spelesID = dabutSpelesId("Kurai spēlei vēlies pievienot jautājumu? (Ievadi spēles ID): ");
+    int spelesID = dabutSpelesId(izveidotasSpeles, "Kurai spēlei vēlies pievienot jautājumu? (Ievadi spēles ID): ");
     int jautajumuSk = skaitluIevade("Cik jautājumus pievienosi?: ", 1);
 
     vector<Jautajums> jautajumi;
@@ -129,7 +81,7 @@ void Redaktors::dzestSpeli() {
     }
 
     apskatitIzveidotasSpeles();
-    int id = dabutSpelesId("Ievadi spēles ID, kuru vēlies dzēst: ");
+    int id = dabutSpelesId(izveidotasSpeles, "Ievadi spēles ID, kuru vēlies dzēst: ");
 
     for (auto it = izveidotasSpeles.begin(); it != izveidotasSpeles.end(); ++it) {
         if (it->getId() == id) {
@@ -149,7 +101,7 @@ void Redaktors::redigetJautajumu() {
     }
 
     apskatitIzveidotasSpeles();
-    int spelesId = dabutSpelesId("Kuras spēles jautājumu/s vēlies rediģēt? (Ievadi spēles ID): ");
+    int spelesId = dabutSpelesId(izveidotasSpeles, "Kuras spēles jautājumu/s vēlies rediģēt? (Ievadi spēles ID): ");
 
     for (Spele& s : izveidotasSpeles) {
         if (s.getId() == spelesId) {
@@ -193,7 +145,7 @@ void Redaktors::dzestJautajumu() {
     }
 
     apskatitIzveidotasSpeles();
-    int spelesId = dabutSpelesId("Kuras spēles jautājumu/s vēlies dzēst? (Ievadi spēles ID): ");
+    int spelesId = dabutSpelesId(izveidotasSpeles, "Kuras spēles jautājumu/s vēlies dzēst? (Ievadi spēles ID): ");
 
     for (Spele& s : izveidotasSpeles) {
         if (s.getId() == spelesId) {

@@ -6,10 +6,14 @@
 #include <vector>
 #include <iostream>
 
+#include "SpelesProtokols.h"
+#include "SpeluParvaldnieks.h"
+
 class Speletajs : public Lietotajs{
 
 private:
     std::vector<std::string> sasniegumi;
+    std::vector<SpelesProtokols> spelesProtokoli;
 
 public:
     Speletajs(int Id = -1, std::string lv = "NA", std::string p = "NA") : Lietotajs(Id, lv, p) {loma = "Speletajs";}
@@ -22,9 +26,10 @@ public:
         for (const std::string& s : sasniegumi) {std::cout << s << "\n";}
     }
 
-    void speletSpeli();
+    void speletSpeli(SpeluParvaldnieks& parvaldnieks);
     void paraditLabakasSpeles();
     void pievienotSasniegumu(const std::string& sasniegums) {sasniegumi.push_back(sasniegums);}
+    void pievienotProtokolu(const SpelesProtokols& protokols) {spelesProtokoli.push_back(protokols);}
 };
 
 #endif

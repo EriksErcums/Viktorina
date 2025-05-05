@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Jautajums.h"
+#include "SpelesProtokols.h"
 
 class Spele {
 
@@ -20,7 +21,7 @@ public:
     Spele(int id, const std::string &Nosaukums, const int maxP, const std::string &limenis, const std::vector<Jautajums>& jautajumi)
     : spelesID(id), nosaukums(Nosaukums), maxPunkti(maxP), grutibasLimenis(limenis), jautajumi(jautajumi) {}
 
-    void saktSpeli();
+    void saktSpeli(SpelesProtokols& protokols);
     void pievienotJaut(std::vector<Jautajums> jaut) {jautajumi.insert(jautajumi.end(), jaut.begin(), jaut.end());}
 
     int getRezultats() {return rezultats;}
