@@ -18,15 +18,15 @@ void Spele::saktSpeli(SpelesProtokols& protokols){
         cout << "Tava atbilde (ievadi skaitli): ";
         cin >> atbilde;
 
-        protokulaTeksts += to_string(x) + ".jaut. Spēlētāja atbilde: " + to_string(atbilde);
+        protokulaTeksts += to_string(x) + " .jautājuma spēlētāja atbilde: " + to_string(atbilde);
 
         if(i.parbaudaJautajumu(atbilde)){
             cout << "Pareizi!" << endl;
-            protokulaTeksts += " . ir pareiza";
+            protokulaTeksts += ". ir pareiza";
             rezultats++;
         } else{
             cout << "Nepareizi!" << endl;
-            protokulaTeksts += " . ir nepareiza";
+            protokulaTeksts += ". ir nepareiza";
         }
         protokols.pievienotDarbibu(protokulaTeksts);
         protokulaTeksts = "";

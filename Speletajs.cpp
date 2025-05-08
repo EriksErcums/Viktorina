@@ -12,7 +12,7 @@ void Speletajs::speletSpeli(SpeluParvaldnieks& parvaldnieks) {
     cout << "Kuru spēli spēlēsi? (Ievadi spēles ID): ";
     parvaldnieks.iegutPieejamasSpeles();
     spelesId = dabutSpelesId(parvaldnieks.getPieejamasSpeles(), "Kuru spēli spēlēsi? (Ievadi spēles ID): ");
-    for (Spele s : parvaldnieks.getPieejamasSpeles() ) {
+    for (Spele& s : parvaldnieks.getPieejamasSpeles() ) {
         if (s.getId() == spelesId) {
             SpelesProtokols protokls(&s, getId(), getLietotajvards());
             s.saktSpeli(protokls);

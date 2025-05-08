@@ -28,5 +28,20 @@ void SpelesProtokols::printProtokoluInfo() {
     cout << "Spēles sākuma laiks: " << getSakums() << "\n";
     cout << "Spēles beigu laiks: " << getBeigas() << "\n";
     cout << "Iegūtie punkti par spēli: " << getPunkti() << " no " << getSpele().getMaxPunkti() << "\n";
-    // TODO: izdomat ka izdrukat veiktas darbibas lai nav viss vektors jadruka
+    kopsavilkumsParDarbibam();
+}
+
+void SpelesProtokols::kopsavilkumsParDarbibam()
+{
+    int pareizoAtbSk = 0, nepareizoAtbSk = 0;
+    for (const string& s : veiktasDarbibas)
+    {
+        size_t atrasts = s.find_last_of(' ');
+        string rez = s.substr(atrasts+1);
+        if (rez == "pareiza") pareizoAtbSk++;
+        else if (rez == "nepareiza") nepareizoAtbSk++;
+    }
+    cout << "Spēlētājs atbildēja uz " << veiktasDarbibas.size() << " jautājumiem.\n";
+    cout << "Spēlētājs atbildēja pareizi uz " << pareizoAtbSk << " jautājumiem.\n";
+    cout << "Spēlētājs atbildēja nepareizi uz " << nepareizoAtbSk << " jautājumiem.\n";
 }

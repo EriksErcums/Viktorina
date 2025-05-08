@@ -30,6 +30,10 @@ public:
     void paraditLabakasSpeles();
     void pievienotSasniegumu(const std::string& sasniegums) {sasniegumi.push_back(sasniegums);}
     void pievienotProtokolu(const SpelesProtokols& protokols) {spelesProtokoli.push_back(protokols);}
+    void apskatitProtokolus()
+    {
+        for (SpelesProtokols protokols : spelesProtokoli) protokols.printProtokoluInfo();
+    }
 };
 
 #endif

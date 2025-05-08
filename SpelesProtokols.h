@@ -34,6 +34,7 @@ public:
     int getPunkti() { return iegutiePunkti; }
 
     void printProtokoluInfo();
+    void kopsavilkumsParDarbibam();
 };
 
 #endif
