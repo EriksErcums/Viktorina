@@ -7,19 +7,16 @@
 #include <iostream>
 #include <string>
 
+#include "PaligFunkcijas.h"
+
 using namespace std;
 
 void LietotajuParvaldnieks::izveidotProfilu() {
     string lv, p, l;
     do {
-        cout << "Ievadi lietotājvārdu: ";
-        cin >> lv;
-
-        cout << "Ievadi paroli: ";
-        cin >> p;
-
-        cout << "Kāda būs lietotāja loma? (Spēlētājs | Redaktors): ";
-        cin >> l;
+        lv = stringIevade("Ievadi lietotājvārdu: ");
+        p = stringIevade("Ievadi paroli: ");
+        l = stringIevade("Kāda būs lietotāja loma? (Spēlētājs | Redaktors): ");
 
         if (lv.length() < 3) cout << "Pārāk īss lietotājvārds!\n";
         if (lv.length() > 20) cout << "Pārāk garš lietotājvārds!\n";
@@ -41,6 +38,43 @@ void LietotajuParvaldnieks::izveidotProfilu() {
         lietotaji.push_back(new Redaktors(pedejaisID, lv, p));
         saglabatLietotajuDB(pedejaisID, lv, p, "Redaktors");
     }
+}
+
+Lietotajs* LietotajuParvaldnieks::pieslegties() {
+    string lietotajvards = stringIevade("ievadi lietotājvārdu: ");
+    string parole = stringIevade("Ievadi paroli: ");
+
+    sqlite3* db;
+    sqlite3_stmt* stmt;
+
+    int rc = sqlite3_open("lietotaji.db", &db);
+    if (rc) {
+        cerr << "Neizdevās atvērt datubāzi: " << sqlite3_errmsg(db) << endl;
+        return nullptr;
+    }
+
+    string sql = "SELECT parole FROM lietotaji WHERE lietotajvards = ?;";
+    rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
+    sqlite3_bind_text(stmt, 1, lietotajvards.c_str(), -1, SQLITE_TRANSIENT);
+
+    if (rc != SQLITE_OK) {
+        cerr << "Radās kļūda nolasot paroli, lomu no datubāzes: " << sqlite3_errmsg(db) << endl;
+        sqlite3_close(db);
+        return nullptr;
+    }
+
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        string Iegutaparole = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+
+        if (bcrypt::validatePassword(parole, Iegutaparole)) {
+            for (Lietotajs* lietotajs : lietotaji) {
+                if (lietotajs->getLietotajvards() == lietotajvards) return lietotajs;
+            }
+        }
+    }
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+    return nullptr;
 }
 
 bool LietotajuParvaldnieks::saturLieloBurtu(const string& parole) {

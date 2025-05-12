@@ -29,6 +29,7 @@ public:
     int dabutPedejoId();
     void izveidotDB();
     void ieladetLietotajusNoDB();
+    Lietotajs* pieslegties();
 };
 
 #endif
