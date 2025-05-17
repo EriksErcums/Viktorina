@@ -1,11 +1,8 @@
 #include "Speletajs.h"
 #include <iostream>
-
-#include "PaligFunkcijas.h"
-
-using namespace std;
-
 #include "SpeluParvaldnieks.h"
+#include "PaligFunkcijas.h"
+using namespace std;
 
 void Speletajs::speletSpeli(SpeluParvaldnieks& parvaldnieks) {
     int spelesId;
@@ -17,6 +14,7 @@ void Speletajs::speletSpeli(SpeluParvaldnieks& parvaldnieks) {
             SpelesProtokols protokls(&s, getId(), getLietotajvards());
             s.saktSpeli(protokls);
             pievienotProtokolu(protokls);
+            speletasSpeles++;
             break;
         }
     }
