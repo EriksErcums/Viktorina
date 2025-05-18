@@ -4,40 +4,51 @@
 #include "Speletajs.h"
 using namespace std;
 
-
 void SpeluParvaldnieks::parbauditSasniegumus(Speletajs& speletajs, SpelesProtokols& protokols) {
 
     int pavaditaisLaiks = konverteUzSekundem(protokols.getBeigas()) - konverteUzSekundem(protokols.getSakums());
     vector<string> sasniegumi = speletajs.getSasniegumi();
 
     if (pavaditaisLaiks < 60) {
-        if (!vaiSaturSasniegumu(sasniegumi, "Ātrs finišētājs: pabeigta spēle mazāk nekā 1 minūtes laikā")) {
-            speletajs.pievienotSasniegumu("Ātrs finišētājs: pabeigta spēle mazāk nekā 1 minūtes laikā");
+        string sasniegums = "Ātrs finišētājs: pabeigta spēle mazāk nekā 1 minūtes laikā\n";
+        if (!vaiSaturSasniegumu(sasniegumi, sasniegums)) {
+            speletajs.pievienotSasniegumu(sasniegums);
+            cout << "Tu ieguvi sasniegumu!: " << sasniegums;
         }
     }
     if (pavaditaisLaiks < 30) {
-        if (!vaiSaturSasniegumu(sasniegumi, "Ātruma dēmons: pabeigta spēle mazāk nekā 30 sekunžu laikā")) {
-            speletajs.pievienotSasniegumu("Ātruma dēmons: pabeigta spēle mazāk nekā 30 sekunžu laikā");
+        string sasniegums = "Ātruma dēmons: pabeigta spēle mazāk nekā 30 sekunžu laikā\n";
+        if (!vaiSaturSasniegumu(sasniegumi, sasniegums)) {
+            speletajs.pievienotSasniegumu(sasniegums);
+            cout << "Tu ieguvi sasniegumu!: " << sasniegums;
         }
     }
     if (speletajs.getSpeletasSpeles() == 5) {
-        if (!vaiSaturSasniegumu(sasniegumi, "Amatieris: nospēlētas 5 spēles")) {
-            speletajs.pievienotSasniegumu("Amatieris: nospēlētas 5 spēles");
+        string sasniegums = "Amatieris: nospēlētas 5 spēles\n";
+        if (!vaiSaturSasniegumu(sasniegumi, sasniegums)) {
+            speletajs.pievienotSasniegumu(sasniegums);
+            cout << "Tu ieguvi sasniegumu!: " << sasniegums;
         }
     }
     if (speletajs.getSpeletasSpeles() == 10) {
-        if (!vaiSaturSasniegumu(sasniegumi, "Veterāns: nospēlētas 10 spēles")) {
-            speletajs.pievienotSasniegumu("Veterāns: nospēlētas 10 spēles");
+        string sasniegums = "Veterāns: nospēlētas 10 spēles\n";
+        if (!vaiSaturSasniegumu(sasniegumi, sasniegums)) {
+            speletajs.pievienotSasniegumu(sasniegums);
+            cout << "Tu ieguvi sasniegumu!: " << sasniegums;
         }
     }
     if (speletajs.getSpeletasSpeles() == 20) {
-        if (!vaiSaturSasniegumu(sasniegumi, "Maratonists: nospēlētas 20 spēles")) {
-            speletajs.pievienotSasniegumu("Maratonists: nospēlētas 20 spēles");
+        string sasniegums = "Maratonists: nospēlētas 20 spēles\n";
+        if (!vaiSaturSasniegumu(sasniegumi, sasniegums)) {
+            speletajs.pievienotSasniegumu(sasniegums);
+            cout << "Tu ieguvi sasniegumu!: " << sasniegums;
         }
     }
     if (protokols.getPunkti() == protokols.getSpele().getMaxPunkti()) {
-        if (!vaiSaturSasniegumu(sasniegumi, "Perfekcionists: sasniegts perfekts rezultāts spēlē (100%)")) {
-            speletajs.pievienotSasniegumu("Perfekcionists: sasniegts perfekts rezultāts spēlē (100%)");
+        string sasniegums = "Perfekcionists: sasniegts perfekts rezultāts spēlē (100%)\n";
+        if (!vaiSaturSasniegumu(sasniegumi, sasniegums)) {
+            speletajs.pievienotSasniegumu(sasniegums);
+            cout << "Tu ieguvi sasniegumu!: " << sasniegums;
         }
     }
 }

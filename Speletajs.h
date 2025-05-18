@@ -24,6 +24,7 @@ public:
     std::string getLoma() override {return loma;}
 
     void apskatitSasniegumus() {
+        std::cout << "Tavi sasniegumi: \n";
         for (const std::string& s : sasniegumi) {std::cout << s << "\n";}
     }
 
@@ -31,7 +32,7 @@ public:
     std::vector<std::string> getSasniegumi() {return sasniegumi;}
 
     void speletSpeli(SpeluParvaldnieks& parvaldnieks);
-    void paraditLabakasSpeles();
+    void paraditLabakasSpeles(SpeluParvaldnieks& parvaldnieks);
     void pievienotSasniegumu(const std::string& sasniegums) {sasniegumi.push_back(sasniegums);}
     void pievienotProtokolu(const SpelesProtokols& protokols) {spelesProtokoli.push_back(protokols);}
     void apskatitProtokolus()
