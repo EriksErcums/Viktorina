@@ -2,23 +2,25 @@
 #include <iomanip>
 #include <algorithm>
 #include <iostream>
+#include "LietotajuParvaldnieks.h"
 #include "SpeluParvaldnieks.h"
 #include "PaligFunkcijas.h"
 using namespace std;
 
-void Speletajs::speletSpeli(SekmjuZurnals& zurnals, SpeluParvaldnieks& parvaldnieks) {
+void Speletajs::speletSpeli(SekmjuZurnals& zurnals, SpeluParvaldnieks& spelu_parvaldnieks, LietotajuParvaldnieks& lietotaju_parvaldnieks) {
     int spelesId;
     cout << "Pieejamās spēles: \n";
-    parvaldnieks.iegutPieejamasSpeles();
-    spelesId = dabutSpelesId(parvaldnieks.getPieejamasSpeles(), "Kuru spēli spēlēsi? (Ievadi spēles ID): ");
-    for (Spele& s : parvaldnieks.getPieejamasSpeles() ) {
+    spelu_parvaldnieks.iegutPieejamasSpeles();
+    spelesId = dabutSpelesId(spelu_parvaldnieks.getPieejamasSpeles(), "Kuru spēli spēlēsi? (Ievadi spēles ID): ");
+    for (Spele& s : spelu_parvaldnieks.getPieejamasSpeles() ) {
         if (s.getId() == spelesId) {
             SpelesProtokols protokls(&s, getId(), getLietotajvards());
             s.saktSpeli(protokls);
             pievienotProtokolu(protokls);
             zurnals.pievienotProtokolu(protokls);
             speletasSpeles++;
-            parvaldnieks.parbauditSasniegumus(*this, protokls);
+            spelu_parvaldnieks.parbauditSasniegumus(*this, protokls);
+            lietotaju_parvaldnieks.protokoluUzFailu(*this, protokls);
             break;
         }
     }

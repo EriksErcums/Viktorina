@@ -3,6 +3,9 @@
 #include <vector>
 
 #include "Lietotajs.h"
+#include "Speletajs.h"
+
+class SpelesProtokols;
 
 class LietotajuParvaldnieks {
 
@@ -30,6 +33,8 @@ public:
     void izveidotDB();
     void ieladetLietotajusNoDB();
     Lietotajs* pieslegties();
+    void protokoluUzFailu(Speletajs& s, SpelesProtokols& protokols);
+    void protokolsUzFailuHelper(const std::string& nosaukums, SpelesProtokols& protokols);
 };
 
 #endif

@@ -3,6 +3,8 @@
 #include "Speletajs.h"
 #include "sqlite3/sqlite3.h"
 #include "bcrypt/bcrypt.h"
+#include <filesystem>
+#include <fstream>
 
 #include <iostream>
 #include <string>
@@ -258,6 +260,47 @@ void LietotajuParvaldnieks::ieladetLietotajusNoDB() {
     sqlite3_finalize(stmt);
     sqlite3_close(db);
 }
+
+void LietotajuParvaldnieks::protokoluUzFailu(Speletajs& s, SpelesProtokols &protokols) {
+
+    if (!filesystem::exists("lietotajuProtokoli")) {
+        if (filesystem::create_directory("lietotajuProtokoli")) {
+            protokolsUzFailuHelper(s.getLietotajvards(), protokols);
+        } else {
+            cout << "Neizdevās izveidot mapi \"lietotajuProtokoli\".\n";
+        }
+    } else {
+        protokolsUzFailuHelper(s.getLietotajvards(), protokols);
+    }
+}
+
+void LietotajuParvaldnieks::protokolsUzFailuHelper(const string& nosaukums, SpelesProtokols& protokols) {
+    string failaNosaukums = "lietotajuProtokoli/" + nosaukums + ".txt";
+
+    bool eksiste = filesystem::exists(failaNosaukums);
+
+    ofstream fails(failaNosaukums, ios::app);
+
+    if (!fails) {
+        cerr << "Neizdevās atvērt failu " << failaNosaukums << "\n";
+        return;
+    }
+
+    if (!eksiste) fails << "Spēles protokoli par lietotāju " << nosaukums << ":\n\n";
+
+        fails << "Spēlētāja ID: " << protokols.getSpeletajaID() << "\n";
+        fails << "Spēlētāja lietotājvārds: " << protokols.getLietotajvardu() << "\n";
+        fails << "Spēlētā spēle: " << protokols.getSpele().getNosaukums() << "\n";
+        fails << "Spēles sākuma laiks: " << protokols.getSakums() << "\n";
+        fails << "Spēles beigu laiks: " << protokols.getBeigas() << "\n";
+        fails << "Iegūtie punkti par spēli: " << protokols.getPunkti() << " no " << protokols.getSpele().getMaxPunkti() << "\n";
+        protokols.kopsavilkumsParDarbibam(fails);
+        fails << "\n";
+    fails.close();
+    }
+
+
+
 
 
 

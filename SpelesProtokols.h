@@ -34,7 +34,7 @@ public:
     int getPunkti() { return iegutiePunkti; }
 
     void printProtokoluInfo();
-    void kopsavilkumsParDarbibam();
+    void kopsavilkumsParDarbibam(std::ostream& os);
 };
 
 #endif

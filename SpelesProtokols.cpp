@@ -28,21 +28,19 @@ void SpelesProtokols::printProtokoluInfo() {
     cout << "Spēles sākuma laiks: " << getSakums() << "\n";
     cout << "Spēles beigu laiks: " << getBeigas() << "\n";
     cout << "Iegūtie punkti par spēli: " << getPunkti() << " no " << getSpele().getMaxPunkti() << "\n";
-    kopsavilkumsParDarbibam();
+    kopsavilkumsParDarbibam(cout);
     cout << "\n";
 }
 
-void SpelesProtokols::kopsavilkumsParDarbibam()
-{
+void SpelesProtokols::kopsavilkumsParDarbibam(ostream& os) {
     int pareizoAtbSk = 0, nepareizoAtbSk = 0;
-    for (const string& s : veiktasDarbibas)
-    {
+    for (const string& s : veiktasDarbibas) {
         size_t atrasts = s.find_last_of(' ');
-        string rez = s.substr(atrasts+1);
+        string rez = s.substr(atrasts + 1);
         if (rez == "pareiza") pareizoAtbSk++;
         else if (rez == "nepareiza") nepareizoAtbSk++;
     }
-    cout << "Spēlētājs atbildēja uz " << veiktasDarbibas.size() << " jautājumiem.\n";
-    cout << "Spēlētājs atbildēja pareizi uz " << pareizoAtbSk << " jautājumiem.\n";
-    cout << "Spēlētājs atbildēja nepareizi uz " << nepareizoAtbSk << " jautājumiem.\n";
+    os << "Spēlētājs atbildēja uz " << veiktasDarbibas.size() << " jautājumiem.\n";
+    os << "Spēlētājs atbildēja pareizi uz " << pareizoAtbSk << " jautājumiem.\n";
+    os << "Spēlētājs atbildēja nepareizi uz " << nepareizoAtbSk << " jautājumiem.\n";
 }
