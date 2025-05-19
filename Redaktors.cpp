@@ -185,4 +185,17 @@ void Redaktors::apskatitSekmjuZurnalu(SekmjuZurnals &zurnals) {
     else if (izvele == 2) zurnals.apskatitKonkretusProt();
 }
 
+void Redaktors::izveidotRangutabulu(SpeluParvaldnieks& spelu_parvaldnieks, SekmjuZurnals &zurnals) {
+    if (zurnals.iegutVisusProtokolus().empty()) {
+        cout << "Sekmju žurnāls ir tukšs!\n";
+        return;
+    }
+    RanguTabula tabula;
+    tabula.izveidotRanguTabulu(zurnals);
+    spelu_parvaldnieks.saglabatRanguTabuluDB(tabula.iegutRanguTabulu());
+    cout << "Rangu tabula veiksmīgi izveidota: \n";
+    tabula.apskatitRanguTabulu();
+}
+
+
 

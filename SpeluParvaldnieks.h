@@ -1,6 +1,8 @@
 #ifndef SPELUPARVALDNIEKS_H
 #define SPELUPARVALDNIEKS_H
 #include <vector>
+
+#include "RanguTabula.h"
 #include "Spele.h"
 class Speletajs;
 #include <string>
@@ -43,6 +45,8 @@ public:
     }
 
     bool vaiSaturSasniegumu(const std::vector<std::string>& sasniegumi, const std::string& sasniegums);
+    void saglabatRanguTabuluDB(const std::vector<Ieraksts>& ieraksts);
+    void izveidotDBprieksRanguTab();
 };
 
 
