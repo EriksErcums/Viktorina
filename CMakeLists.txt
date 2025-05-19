@@ -24,6 +24,7 @@ add_executable(Viktorina
         PaligFunkcijas.h
         PaligFunkcijas.cpp
         RanguTabula.cpp
+        SekmjuZurnals.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

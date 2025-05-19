@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Lietotajs.h"
+#include "SekmjuZurnals.h"
 #include "Spele.h"
 #include "SpeluParvaldnieks.h"
 
@@ -39,6 +40,7 @@ public:
     void dzestJautajumu();
     void dzestSpeli();
     void redigetJautajumu();
+    void apskatitSekmjuZurnalu(SekmjuZurnals& zurnals);
 };
 
 #endif

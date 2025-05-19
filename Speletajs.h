@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 
+#include "SekmjuZurnals.h"
 #include "SpelesProtokols.h"
 class SpeluParvaldnieks;
 
@@ -31,7 +32,7 @@ public:
     int getSpeletasSpeles() {return  speletasSpeles;}
     std::vector<std::string> getSasniegumi() {return sasniegumi;}
 
-    void speletSpeli(SpeluParvaldnieks& parvaldnieks);
+    void speletSpeli(SekmjuZurnals& zurnals, SpeluParvaldnieks& parvaldnieks);
     void paraditLabakasSpeles(SpeluParvaldnieks& parvaldnieks);
     void pievienotSasniegumu(const std::string& sasniegums) {sasniegumi.push_back(sasniegums);}
     void pievienotProtokolu(const SpelesProtokols& protokols) {spelesProtokoli.push_back(protokols);}

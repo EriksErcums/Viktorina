@@ -29,6 +29,7 @@ void SpelesProtokols::printProtokoluInfo() {
     cout << "Spēles beigu laiks: " << getBeigas() << "\n";
     cout << "Iegūtie punkti par spēli: " << getPunkti() << " no " << getSpele().getMaxPunkti() << "\n";
     kopsavilkumsParDarbibam();
+    cout << "\n";
 }
 
 void SpelesProtokols::kopsavilkumsParDarbibam()

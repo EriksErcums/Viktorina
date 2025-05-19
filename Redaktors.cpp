@@ -163,3 +163,26 @@ void Redaktors::dzestJautajumu() {
         }
     }
 }
+
+void Redaktors::apskatitSekmjuZurnalu(SekmjuZurnals &zurnals) {
+    if (zurnals.iegutVisusProtokolus().empty()) {
+        cout << "Sekmju žurnāls ir tukšs!\n";
+        return;
+    }
+    int izvele;
+    do {
+        cout << "1. Apskatīt visus sekmju žurnāla ierakstus\n2. Apskatīt sekmju žurnāla ierakstus par konkrētu spēlētaju\n";
+        cout << "Tava izvēle (ievadi skaitli): ";
+        cin >> izvele;
+    } while (izvele < 1 || izvele > 2);
+
+    if (izvele == 1) {
+        cout << "Visi sekmju žurnāla ieraksti: \n";
+        for (SpelesProtokols& protokols : zurnals.iegutVisusProtokolus()) {
+            protokols.printProtokoluInfo();
+        }
+    }
+    else if (izvele == 2) zurnals.apskatitKonkretusProt();
+}
+
+

@@ -6,7 +6,7 @@
 #include "PaligFunkcijas.h"
 using namespace std;
 
-void Speletajs::speletSpeli(SpeluParvaldnieks& parvaldnieks) {
+void Speletajs::speletSpeli(SekmjuZurnals& zurnals, SpeluParvaldnieks& parvaldnieks) {
     int spelesId;
     cout << "Pieejamās spēles: \n";
     parvaldnieks.iegutPieejamasSpeles();
@@ -16,6 +16,7 @@ void Speletajs::speletSpeli(SpeluParvaldnieks& parvaldnieks) {
             SpelesProtokols protokls(&s, getId(), getLietotajvards());
             s.saktSpeli(protokls);
             pievienotProtokolu(protokls);
+            zurnals.pievienotProtokolu(protokls);
             speletasSpeles++;
             parvaldnieks.parbauditSasniegumus(*this, protokls);
             break;
@@ -46,7 +47,7 @@ void Speletajs::paraditLabakasSpeles(SpeluParvaldnieks& parvaldnieks) {
             cout << "Spēles ID: " << spele.getId()
             << ", nosaukums: " << spele.getNosaukums()
             << ", rezultāts: " << protokols.getPunkti()
-            << ", laiks: " << min << ":" << std::setw(2) << std::setfill('0') << sek << "\n";
+            << ", laiks: " << min << ":" << setw(2) << setfill('0') << sek << "\n";
         }
 }
 
