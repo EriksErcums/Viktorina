@@ -1,6 +1,6 @@
 # Viktorina
 RTU Liepājas akadēmijas studiju darbs
-Darba audtori: Patriks Kulinskis , Elvijs Gorbunovs, Ēriks Ercums
+Darba autori: Patriks Kulinskis , Elvijs Gorbunovs, Ēriks Ercums
 
 
 Projekta uzdevuma vispārējās prasības. 

@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Viktorina
         README.md
+        main.cpp
         Lietotajs.h
         Speletajs.cpp
         Speletajs.h

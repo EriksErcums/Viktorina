@@ -4,6 +4,8 @@
 #include <limits>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cctype>
 #include "Spele.h"
 
 using namespace std;
@@ -57,4 +59,8 @@ string stringIevade(const string& teksts) {
         }
     } while (ievade.empty());
     return ievade;
+}
+
+void uzUpperCase(string& teksts){
+    transform(teksts.begin(), teksts.end(), teksts.begin(), [](unsigned char c){ return std::toupper(c); });
 }
