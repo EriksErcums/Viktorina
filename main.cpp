@@ -13,6 +13,7 @@ using namespace std;
 
 void lietotajsVaiRedaktors();
 void redaktoraSkats();
+void speletajaSkats();
 
 LietotajuParvaldnieks LP;
 SpeluParvaldnieks SP;
@@ -69,7 +70,14 @@ void lietotajsVaiRedaktors(){
             redaktoraSkats();
         }
         else{
-            //TODO:Iezveidot spēlētāja skata punktu
+            speletajs = new Speletajs(
+                lietotajs->getId(),
+                lietotajs->getLietotajvards(),
+                lietotajs->getParole()
+            );
+
+            delete lietotajs;
+            speletajaSkats();
         }
 
     }
@@ -133,4 +141,43 @@ void redaktoraSkats(){
     }
     delete redaktors;
     redaktors = nullptr;
+}
+
+void speletajaSkats(){
+    if(speletajs == nullptr) return;
+
+    string ievade = "";
+    while(true){
+        system("cls");
+        cout << "\tSPĒLĒTĀJA SKATS\n";
+        cout << "1) Spēlēt spēli;\n";
+        cout << "2) Apskatīt sasniegumus;\n";
+        cout << "3) Apskatīt labākās spēles;\n";
+        cout << "4) Apskatīt protokolus;\n";
+        cout << "STOP vai EXIT - beigt darbu;\n\n";
+        ievade = stringIevade("Izvēle: ");
+        uzUpperCase(ievade);
+
+        system("cls");
+        cout << "\tSPĒLĒTĀJA SKATS\n";
+        if(ievade == "1"){
+            speletajs->speletSpeli(SZ, SP, LP);
+        }
+        else if(ievade == "2"){
+            speletajs->apskatitSasniegumus();
+        }
+        else if(ievade == "3"){
+            speletajs->paraditLabakasSpeles(SP);
+        }
+        else if(ievade == "4"){
+            speletajs->apskatitProtokolus();
+        }
+        else if(ievade == "STOP" || ievade == "EXIT"){
+            break;
+        }
+        cout << "Nospiediet - ENTER";
+        cin.get();
+    }
+    delete speletajs;
+    speletajs = nullptr;
 }
