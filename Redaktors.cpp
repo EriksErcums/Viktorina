@@ -194,7 +194,7 @@ void Redaktors::izveidotRangutabulu(SpeluParvaldnieks& spelu_parvaldnieks, Sekmj
     tabula.izveidotRanguTabulu(zurnals);
     spelu_parvaldnieks.saglabatRanguTabuluDB(tabula.iegutRanguTabulu());
     cout << "Rangu tabula veiksmīgi izveidota: \n";
-    tabula.apskatitRanguTabulu();
+    apskatitiesRanguTabulu(spelu_parvaldnieks);
 }
 
 

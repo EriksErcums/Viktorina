@@ -18,11 +18,11 @@ class RanguTabula{
 private:
     std::vector<Ieraksts> rezultati;
 public:
-    void izveidotRanguTabulu(SekmjuZurnals zurnals);
+    void izveidotRanguTabulu(SekmjuZurnals& zurnals);
     void apskatitRanguTabulu();
     std::vector<Ieraksts> iegutRanguTabulu() { return rezultati; };
     void pievienotIerakstu(int id, std::string vards, int punkti, int laiks);
-    int parveidotLaikuUzSekundem(std::string laiks);
+    int parveidotLaikuUzSekundem(const std::string& laiks);
 };
 
 #endif

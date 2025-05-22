@@ -45,8 +45,9 @@ public:
     }
 
     bool vaiSaturSasniegumu(const std::vector<std::string>& sasniegumi, const std::string& sasniegums);
-    void saglabatRanguTabuluDB(const std::vector<Ieraksts>& ieraksts);
+    void saglabatRanguTabuluDB(const std::vector<Ieraksts>& ieraksti);
     void izveidotDBprieksRanguTab();
+    void apskatitiesRanguTab();
 };
 
 

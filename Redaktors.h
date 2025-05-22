@@ -43,6 +43,9 @@ public:
     void redigetJautajumu();
     void apskatitSekmjuZurnalu(SekmjuZurnals& zurnals);
     void izveidotRangutabulu(SpeluParvaldnieks& spelu_parvaldnieks, SekmjuZurnals &zurnals);
+    void apskatitiesRanguTabulu(SpeluParvaldnieks& spelu_parvaldnieks) {
+        spelu_parvaldnieks.apskatitiesRanguTab();
+    }
 };
 
 #endif
