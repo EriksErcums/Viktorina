@@ -1,5 +1,7 @@
 #include "PaligFunkcijas.h"
 #include "LietotajuParvaldnieks.h"
+#include "SpeluParvaldnieks.h"
+#include "SekmjuZurnals.h"
 #include "Lietotajs.h"
 #include "Redaktors.h"
 #include "Speletajs.h"
@@ -13,6 +15,8 @@ void lietotajsVaiRedaktors();
 void redaktoraSkats();
 
 LietotajuParvaldnieks LP;
+SpeluParvaldnieks SP;
+SekmjuZurnals SZ;
 Redaktors* redaktors = nullptr;
 Speletajs* speletajs = nullptr;
 
@@ -80,14 +84,17 @@ void redaktoraSkats(){
     if(redaktors == nullptr) return;
 
     string ievade = "";
-    while(ievade != "STOP" && ievade != "EXIT"){
+    while(true){
         system("cls");
         cout << "\tREDAKTORA SKATS\n";
-        //TODO:Pievienot vēl iespējas redaktoram
-        cout << "1) Izveidot jaunu spēli - nav izveidota;\n";
+        cout << "1) Izveidot jaunu spēli;\n";
         cout << "2) Apskatīt izveidotās spēles;\n";
-        cout << "3) Rediģēt spēles jautājumus; \n";
-        cout << "4) Dzēst spēles jautājumus; \n";
+        cout << "3) Apskatīt sekmju žurnālu;\n";
+        cout << "4) Izveidot rangu tabulu;\n";
+        cout << "5) Rediģēt spēles jautājumus; \n";
+        cout << "6) Dzēst spēles jautājumu; \n";
+        cout << "7) Pievienot spēlei jautājumu;\n";
+        cout << "8) Dzēst spēli;\n";
         cout << "STOP vai EXIT - beigt darbu;\n\n";
         ievade = stringIevade("Izvēle: ");
         uzUpperCase(ievade);
@@ -95,16 +102,31 @@ void redaktoraSkats(){
         system("cls");
         cout << "\tREDAKTORA SKATS\n";
         if(ievade == "1"){
-
+            redaktors->izveidotSpeli(SP);
         }
         else if (ievade == "2"){
             redaktors->apskatitIzveidotasSpeles();
         }
         else if(ievade == "3"){
+            redaktors->apskatitSekmjuZurnalu(SZ);
+        }
+        else if(ievade =="4"){
+            redaktors->izveidotRangutabulu(SP, SZ);
+        }
+        else if(ievade == "5"){
             redaktors->redigetJautajumu();
         }
-        else if(ievade == "4"){
+        else if(ievade == "6"){
             redaktors->dzestJautajumu();
+        }
+        else if(ievade == "7"){
+            redaktors->pievienotJautajumu();
+        }
+        else if(ievade == "8"){
+            redaktors->dzestSpeli();
+        }
+        else if(ievade == "STOP" || ievade == "EXIT"){
+            break;
         }
         cout << "Nospiediet - ENTER";
         cin.get();
