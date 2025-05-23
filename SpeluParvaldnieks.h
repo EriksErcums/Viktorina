@@ -26,7 +26,6 @@ public:
                 std::cout << "Grūtības līmenis: " << s.getGrutibasLimenis() << "\n";
             }
         }
-        else std::cout << "Redaktors nav izveidojis nevienu spēli!.\n";
     }
 
     void pievienotSpeli(const Spele& spele) {visasPieejamasSpeles.push_back(spele);}

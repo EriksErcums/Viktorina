@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void lietotajsVaiRedaktors();
+bool lietotajsVaiRedaktors();
 void redaktoraSkats();
 void speletajaSkats();
 
@@ -21,22 +21,20 @@ SekmjuZurnals SZ;
 Redaktors* redaktors = nullptr;
 Speletajs* speletajs = nullptr;
 
-int main(){
-    lietotajsVaiRedaktors();
-    
+int main() {
+    while (lietotajsVaiRedaktors());
+    LP.clearLietotaji();
     cout << "Programmas beigas!\n";
+    return 0;
 }
 
-void lietotajsVaiRedaktors(){
+bool lietotajsVaiRedaktors(){
     system("cls");
     string izvele;
 
     while(true){
-        //Pārliecinās, ka izvele nav tukša
-        izvele = stringIevade("Vai vēlaties PIESLĒGTIES(P) vai REĢISTRĒTIES(R)?\n");
-        //Pārveidot izvele uz upper case
+        izvele = stringIevade("Vai vēlaties PIESLĒGTIES(P), REĢISTRĒTIES(R) vai IZIET(X)?\n");
         uzUpperCase(izvele);
-
 
         if(izvele == "P" || izvele == "PIESLĒGTIES" || izvele == "PIESLEGTIES"){
             izvele = "P";
@@ -46,47 +44,41 @@ void lietotajsVaiRedaktors(){
             izvele = "R";
             break;
         }
-
+        if(izvele == "X" || izvele == "IZIET"){
+            return false; // Aptur programmu
+        }
         system("cls");
     }
+
     system("cls");
 
-    if(izvele == "P"){
+    if (izvele == "P") {
         Lietotajs* lietotajs = LP.pieslegties();
-        if(lietotajs == nullptr){
-            //TODO:Izdomāt, ko darīt, ka tiek atriezts nullptr, pagaidām vēlreiz lietotajsVaiRedaktors();
-            cout << "Litotājvārds vai parole nav pareiza!\nNospiediet ENTER\n";
+        if (lietotajs == nullptr) {
+            cout << "Lietotājvārds vai parole nav pareiza!\nNospiediet ENTER\n";
             cin.get();
-            lietotajsVaiRedaktors();
+            return true;
         }
-        if(lietotajs->getLoma() == "Redaktors"){
-            redaktors = new Redaktors(
-                lietotajs->getId(),
-                lietotajs->getLietotajvards(),
-                lietotajs->getParole()
-            );
-            //Atīram atmiņu, lietotajs vairs nebūs vajadzīgs, jo pie tā varēs nokļūt caur Redaktors objektu
-            delete lietotajs;
+
+        if (lietotajs->getLoma() == "Redaktors") {
+            redaktors = dynamic_cast<Redaktors*>(lietotajs);
             redaktoraSkats();
-        }
-        else{
-            speletajs = new Speletajs(
-                lietotajs->getId(),
-                lietotajs->getLietotajvards(),
-                lietotajs->getParole()
-            );
-
-            delete lietotajs;
+            redaktors = nullptr;
+        } else {
+            speletajs = dynamic_cast<Speletajs*>(lietotajs);
             speletajaSkats();
+            speletajs = nullptr;
         }
-
     }
     else if(izvele == "R"){
         LP.izveidotProfilu();
-        //Izmantojot rekursiju, lai vēlreiz tiktu pie izvēlēm pēc reģistrēšanās
-        lietotajsVaiRedaktors();
+        cout << "Nospiediet ENTER, lai turpinātu...\n";
+        cin.get();
     }
+
+    return true; // Turpina ciklu, lai atgrieztos login/reģistrācijas sākumekrānā
 }
+
 
 void redaktoraSkats(){
     if(redaktors == nullptr) return;
@@ -103,6 +95,7 @@ void redaktoraSkats(){
         cout << "6) Dzēst spēles jautājumu; \n";
         cout << "7) Pievienot spēlei jautājumu;\n";
         cout << "8) Dzēst spēli;\n";
+        cout << "9) Apskatīt rangu tabulu;\n";
         cout << "STOP vai EXIT - beigt darbu;\n\n";
         ievade = stringIevade("Izvēle: ");
         uzUpperCase(ievade);
@@ -133,13 +126,15 @@ void redaktoraSkats(){
         else if(ievade == "8"){
             redaktors->dzestSpeli();
         }
+        else if(ievade == "9"){
+            redaktors->apskatitiesRanguTabulu(SP);
+        }
         else if(ievade == "STOP" || ievade == "EXIT"){
             break;
         }
         cout << "Nospiediet - ENTER";
         cin.get();
     }
-    delete redaktors;
     redaktors = nullptr;
 }
 
@@ -152,9 +147,9 @@ void speletajaSkats(){
         cout << "\tSPĒLĒTĀJA SKATS\n";
         cout << "1) Spēlēt spēli;\n";
         cout << "2) Apskatīt sasniegumus;\n";
-        cout << "3) Apskatīt labākās spēles;\n";
+        cout << "3) Apskatīt labākās spēles\n";
         cout << "4) Apskatīt protokolus;\n";
-        cout << "STOP vai EXIT - beigt darbu;\n\n";
+        cout << "STOP vai EXIT - beigt darbu\n\n";
         ievade = stringIevade("Izvēle: ");
         uzUpperCase(ievade);
 
@@ -178,6 +173,5 @@ void speletajaSkats(){
         cout << "Nospiediet - ENTER";
         cin.get();
     }
-    delete speletajs;
     speletajs = nullptr;
 }

@@ -39,6 +39,10 @@ public:
     void pievienotProtokolu(const SpelesProtokols& protokols) {spelesProtokoli.push_back(protokols);}
     void apskatitProtokolus()
     {
+        if (spelesProtokoli.empty()) {
+            std::cout << "Jums nav neviena spēles protokola!\n";
+            return;
+        }
         for (SpelesProtokols protokols : spelesProtokoli) protokols.printProtokoluInfo();
     }
 };

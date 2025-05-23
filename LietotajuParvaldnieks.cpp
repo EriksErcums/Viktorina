@@ -98,6 +98,7 @@ void LietotajuParvaldnieks::dzestLietotaju() {
     apskatitLietotajus();
     cout << "Ievadi lietotāja ID, kuru vēlies dzēst: ";
     cin >> id;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     bool izdzests = false;
     for (auto it = lietotaji.begin(); it != lietotaji.end();) {
@@ -139,6 +140,8 @@ void LietotajuParvaldnieks::dzestLietotajuDB(int id) {
     if (rc != SQLITE_OK) {
         cerr << "Radās kļūda dzēšot lietotāju: " << errMsg << endl;
         sqlite3_free(errMsg);
+        sqlite3_close(db);
+        return;
     }
 
     sqlite3_close(db);
@@ -165,6 +168,8 @@ void LietotajuParvaldnieks::saglabatLietotajuDB(const int id, const string& lv, 
     if (rc != SQLITE_OK) {
         cerr << "Radās kļūda saglabājot lietotāju datubāzē: " << errMsg << endl;
         sqlite3_free(errMsg);
+        sqlite3_close(db);
+        return;
     }
 
     sqlite3_close(db);
@@ -220,6 +225,8 @@ void LietotajuParvaldnieks::izveidotDB() {
     if (rc != SQLITE_OK) {
         cerr << "Kļūda veidojot tabulu: " << errMsg << endl;
         sqlite3_free(errMsg);
+        sqlite3_close(db);
+        return;
     }
 
     sqlite3_close(db);
@@ -298,15 +305,3 @@ void LietotajuParvaldnieks::protokolsUzFailuHelper(const string& nosaukums, Spel
         fails << "\n";
     fails.close();
     }
-
-
-
-
-
-
-
-
-
-
-
-

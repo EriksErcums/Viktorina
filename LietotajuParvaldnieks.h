@@ -35,6 +35,12 @@ public:
     Lietotajs* pieslegties();
     void protokoluUzFailu(Speletajs& s, SpelesProtokols& protokols);
     void protokolsUzFailuHelper(const std::string& nosaukums, SpelesProtokols& protokols);
+    void clearLietotaji() {
+        for (Lietotajs* lietotajs : lietotaji) {
+            delete lietotajs;
+        }
+        lietotaji.clear();
+    }
 };
 
 #endif

@@ -8,9 +8,16 @@
 using namespace std;
 
 void Speletajs::speletSpeli(SekmjuZurnals& zurnals, SpeluParvaldnieks& spelu_parvaldnieks, LietotajuParvaldnieks& lietotaju_parvaldnieks) {
+
+    if (spelu_parvaldnieks.getPieejamasSpeles().empty()) {
+        cout << "Redaktors nav izveidojis nevienu spēli!\n";
+        return;
+    }
+
     int spelesId;
     cout << "Pieejamās spēles: \n";
     spelu_parvaldnieks.iegutPieejamasSpeles();
+
     spelesId = dabutSpelesId(spelu_parvaldnieks.getPieejamasSpeles(), "Kuru spēli spēlēsi? (Ievadi spēles ID): ");
     for (Spele& s : spelu_parvaldnieks.getPieejamasSpeles() ) {
         if (s.getId() == spelesId) {

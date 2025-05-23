@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void RanguTabula::pievienotIerakstu(int id, std::string vards, int punkti, int laiks)
+void RanguTabula::pievienotIerakstu(int id, string vards, int punkti, int laiks)
 {
     rezultati.push_back(Ieraksts{id, vards, punkti, laiks});
 }
@@ -16,7 +16,7 @@ int RanguTabula::parveidotLaikuUzSekundem(const string& laiks)
     int h = 0, m = 0, s = 0;
     char delim;
 
-    std::istringstream iss(laiks);
+    istringstream iss(laiks);
     iss >> h >> delim >> m >> delim >> s;
 
     return h * 3600 + m * 60 + s;

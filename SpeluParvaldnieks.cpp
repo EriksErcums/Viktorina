@@ -96,6 +96,8 @@ void SpeluParvaldnieks::saglabatRanguTabuluDB(const vector<Ieraksts>& ieraksti) 
         if (rc != SQLITE_OK) {
             cerr << "Radās kļūda saglabājot rangu tabulu datubāzē: " << errMsg << endl;
             sqlite3_free(errMsg);
+            sqlite3_close(db);
+            return;
         }
     }
     sqlite3_close(db);
@@ -121,6 +123,8 @@ void SpeluParvaldnieks::izveidotDBprieksRanguTab() {
     if (rc != SQLITE_OK) {
         cerr << "Kļūda veidojot tabulu: " << errMsg << endl;
         sqlite3_free(errMsg);
+        sqlite3_close(db);
+        return;
     }
 
     sqlite3_close(db);
