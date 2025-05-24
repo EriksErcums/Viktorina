@@ -35,6 +35,10 @@ void Speletajs::speletSpeli(SekmjuZurnals& zurnals, SpeluParvaldnieks& spelu_par
 
 // sakārto protokolus balstoties uz punktu skaitu un pavadīto laiku:
 void Speletajs::paraditLabakasSpeles(SpeluParvaldnieks& parvaldnieks) {
+    if (spelesProtokoli.empty()) {
+        cout << "Tu neesi spēlējis nevienu spēli!\n";
+        return;
+    }
     sort(spelesProtokoli.begin(), spelesProtokoli.end(), [&parvaldnieks](SpelesProtokols& a, SpelesProtokols& b) {
         int laiksA = parvaldnieks.konverteUzSekundem(a.getBeigas()) - parvaldnieks.konverteUzSekundem(a.getSakums());
         int laiksB = parvaldnieks.konverteUzSekundem(b.getBeigas()) - parvaldnieks.konverteUzSekundem(b.getSakums());

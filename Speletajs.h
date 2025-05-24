@@ -26,6 +26,11 @@ public:
     std::string getLoma() override {return loma;}
 
     void apskatitSasniegumus() {
+        if (sasniegumi.empty()) {
+            std::cout << "Tev nav neviena sasnieguma!\n";
+            return;
+        }
+
         std::cout << "Tavi sasniegumi: \n";
         for (const std::string& s : sasniegumi) {std::cout << s << "\n";}
     }

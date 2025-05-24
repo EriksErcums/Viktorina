@@ -61,22 +61,27 @@ Lietotajs* LietotajuParvaldnieks::pieslegties() {
 
     if (rc != SQLITE_OK) {
         cerr << "Radās kļūda nolasot paroli, lomu no datubāzes: " << sqlite3_errmsg(db) << endl;
+        sqlite3_finalize(stmt);
         sqlite3_close(db);
         return nullptr;
     }
 
+    Lietotajs* atrastsLietotajs = nullptr;
     if (sqlite3_step(stmt) == SQLITE_ROW) {
         string Iegutaparole = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
 
         if (bcrypt::validatePassword(parole, Iegutaparole)) {
             for (Lietotajs* lietotajs : lietotaji) {
-                if (lietotajs->getLietotajvards() == lietotajvards) return lietotajs;
+                if (lietotajs->getLietotajvards() == lietotajvards) {
+                    atrastsLietotajs = lietotajs;
+                    break;
+                }
             }
         }
     }
     sqlite3_finalize(stmt);
     sqlite3_close(db);
-    return nullptr;
+    return atrastsLietotajs;
 }
 
 bool LietotajuParvaldnieks::saturLieloBurtu(const string& parole) {
