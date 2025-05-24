@@ -14,6 +14,7 @@ using namespace std;
 bool lietotajsVaiRedaktors();
 void redaktoraSkats();
 void speletajaSkats();
+void nospiedietEnter();
 
 LietotajuParvaldnieks LP;
 SpeluParvaldnieks SP;
@@ -72,8 +73,7 @@ bool lietotajsVaiRedaktors(){
     }
     else if(izvele == "R"){
         LP.izveidotProfilu();
-        cout << "Nospiediet ENTER, lai turpinātu...\n";
-        cin.get();
+        nospiedietEnter();
     }
 
     return true; // Turpina ciklu, lai atgrieztos login/reģistrācijas sākumekrānā
@@ -110,6 +110,7 @@ void redaktoraSkats(){
         }
         else if(ievade == "3"){
             redaktors->apskatitSekmjuZurnalu(SZ);
+            nospiedietEnter();
         }
         else if(ievade =="4"){
             redaktors->izveidotRangutabulu(SP, SZ);
@@ -119,6 +120,7 @@ void redaktoraSkats(){
         }
         else if(ievade == "6"){
             redaktors->dzestJautajumu();
+            nospiedietEnter();
         }
         else if(ievade == "7"){
             redaktors->pievienotJautajumu();
@@ -132,8 +134,7 @@ void redaktoraSkats(){
         else if(ievade == "STOP" || ievade == "EXIT"){
             break;
         }
-        cout << "Nospiediet - ENTER";
-        cin.get();
+        nospiedietEnter();
     }
     redaktors = nullptr;
 }
@@ -145,10 +146,10 @@ void speletajaSkats(){
     while(true){
         system("cls");
         cout << "\tSPĒLĒTĀJA SKATS\n";
-        cout << "1) Spēlēt spēli;\n";
-        cout << "2) Apskatīt sasniegumus;\n";
+        cout << "1) Spēlēt spēli\n";
+        cout << "2) Apskatīt sasniegumus\n";
         cout << "3) Apskatīt labākās spēles\n";
-        cout << "4) Apskatīt protokolus;\n";
+        cout << "4) Apskatīt protokolus\n";
         cout << "STOP vai EXIT - beigt darbu\n\n";
         ievade = stringIevade("Izvēle: ");
         uzUpperCase(ievade);
@@ -157,6 +158,7 @@ void speletajaSkats(){
         cout << "\tSPĒLĒTĀJA SKATS\n";
         if(ievade == "1"){
             speletajs->speletSpeli(SZ, SP, LP);
+            nospiedietEnter();
         }
         else if(ievade == "2"){
             speletajs->apskatitSasniegumus();
@@ -170,8 +172,12 @@ void speletajaSkats(){
         else if(ievade == "STOP" || ievade == "EXIT"){
             break;
         }
-        cout << "Nospiediet - ENTER";
-        cin.get();
+        nospiedietEnter();
     }
     speletajs = nullptr;
+}
+
+void nospiedietEnter() {
+    cout << "Nospiediet ENTER, lai turpinātu...\n";
+    cin.get();
 }

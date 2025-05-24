@@ -1,33 +1,60 @@
-# Viktorina
-RTU Liepājas akadēmijas studiju darbs
-Darba autori: Patriks Kulinskis , Elvijs Gorbunovs, Ēriks Ercums
+# Viktorīna
 
+Izglītojošas spēles un lietotāju pārvaldības sistēma  
+RTU Liepājas akadēmijas studiju darbs  
+Autori: Patriks Kulinskis, Elvijs Gorbunovs, Ēriks Ercums
 
-Projekta uzdevuma vispārējās prasības. 
+---
 
+## Apraksts
 
-Programmatūras izstrādei komanda var izvēlēties izstrādes rīkus pēc saviem ieskatiem.
+**"Viktorīna"** ir C++ izstrādāta konsoles lietotne, kas apvieno lietotāju pārvaldību ar izglītojošu viktorīnas tipa spēli. Sistēmā ir divas lietotāju lomas:
 
-Uzdevums A. Izveidot lietotāju pārvaldības sistēmu izglītojošas spēles programmatūras sistēmai. Tajā jāiestrādā objektu klases un funkcijas, kas nodrošina:
+- **Redaktors** – var veidot, rediģēt un dzēst spēles un jautājumus, kā arī apskatīt sekmju žurnālu un rangu tabulu.
+- **Spēlētājs** – var spēlēt izveidotās spēles, apskatīt savus sasniegumus un labākos rezultātus.
 
-1) lietotāja profila izveidi;
-2) vismaz divas lietotāju grupas - (a) spēles redaktors un (b) spēlētājs;
-3) spēles izveide (to veic tikai spēles redaktors);
-4) spēles protokols, kurā ieraksta spēles sākuma un beigu laiku, kā arī darbības, ko spēlētājs veic spēles laikā;
-5) katras spēles spēlētāju sekmju žurnālu, ko redz tikai redaktors;
-6) katra spēlētāja labāko spēļu sarakstu, ko redz tikai pats spēlētājs;
-7) labāko spēlētāju rangu tabulu;
-8) papidlus funkcijas pēc izstrādātāju ieskatiem.
+Projekts izmanto **SQLite** datubāzi lietotāju profilu glabāšanai, paroles tiek droši uzglabātas ar hash palīdzību.
 
-Nodrošināt datu ierakstīšanu teksta failā(-os) vai datubāzē un nolasīšanu no tiem.
+---
 
-Uzdevums B. Izmantojot objektorientēto pieeju, izveidot izglītojošas spēles programmatūras sistēmu, ko apvieno ar  uzdevumā A izveidoto lietotāju pārvaldības sistēmu. Spēles ideja ir sistēmas izstrādātāju ziņā.
+## Funkcionalitāte
 
-Dažas idejas spēlei:
-- Izlaušanās no telpas (Escape Room), piemēram, izlaušanās no matemātikas kabineta, fizikas laboratorijas vai datorklases
-- virtuālā pastaiga universitātē (katrā auditorijā kāds uzdevums vai cita veida aktivitāte)
-- Dari, ko vari, galvā dari - galvas rēķini
-- Karātavas - vārdu atminēšana par noteiktu tēmu
-- Kas to būtu domājis - jautājumi ar atbilžu variantiem
-- VIP - jautājumi ar ieteikumiem pareizajai atbildei
-- Burtu režģis - rūtiņu tabula (katrā rūtiņā ir 1 burts), kurā ieslēpti vārdi
+- Lietotāja profila izveide un pieslēgšanās
+- Lietotāju lomu sadalījums (Redaktors, Spēlētājs)
+- Spēles izveide, labošana, jautājumu pievienošana/rediģēšana/dzēšana (Redaktors)
+- Spēles spēlēšana ar jautājumu atbildēšanu (Spēlētājs)
+- Spēles protokols ar darbību pierakstu un laika uzskaiti
+- Spēlētāju sekmju žurnāls (pieejams tikai redaktoram)
+- Katram spēlētājam savs labāko spēļu saraksts
+- Labāko spēlētāju rangu tabula
+- Sasniegumu sistēma spēlētājiem
+- Datu glabāšana datubāzē un teksta failos
+
+---
+
+## Lietošana
+
+1. Kompilējiet projektu ar C++17 standartu.
+2. Palaidiet izpildāmo failu.
+3. Reģistrējieties vai pieslēdzieties kā spēlētājs vai redaktors.
+4. Izvēlieties darbības atbilstoši lomai.
+
+---
+
+## Tehniskā informācija
+
+- Kods rakstīts C++
+- Lietotāju dati tiek glabāti SQLite datubāzē (`lietotaji.db`)
+- Rangu tabula tiek glabāta datubāzē (`RanguTabula.db`)
+- Spēļu protokoli tiek saglabāti arī teksta failos (`lietotajuProtokoli/`)
+- Paroļu hashing veikts ar **bcrypt**
+- Konsole: `system("cls")` ekrāna tīrīšanai (Windows)
+
+---
+
+## Bibliotēkas
+
+- [sqlite3](https://www.sqlite.org/)
+- [bcrypt](https://github.com/hilch/Bcrypt.cpp)
+
+---

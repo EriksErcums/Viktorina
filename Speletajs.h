@@ -48,6 +48,7 @@ public:
             std::cout << "Jums nav neviena spēles protokola!\n";
             return;
         }
+        std::cout << "Tavi spēles protokoli:\n";
         for (SpelesProtokols protokols : spelesProtokoli) protokols.printProtokoluInfo();
     }
 };

@@ -27,7 +27,7 @@ void Redaktors::izveidotSpeli(SpeluParvaldnieks& parvaldnieks) {
         jautajumi.push_back(pievienot_jautajums_helper(i));
     }
 
-    int spelesId = izveidotasSpeles.empty() ? 1 : izveidotasSpeles.back().getId() + 1;
+    int spelesId = parvaldnieks.getPieejamasSpeles().empty() ? 1 : parvaldnieks.getPieejamasSpeles().back().getId() + 1;
     Spele spele(spelesId, nosaukums, maxp, grutibaslimenis, jautajumi);
     izveidotasSpeles.push_back(spele);
     parvaldnieks.pievienotSpeli(spele);
