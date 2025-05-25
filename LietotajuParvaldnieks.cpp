@@ -18,24 +18,26 @@ void LietotajuParvaldnieks::izveidotProfilu() {
     do {
         lv = stringIevade("Ievadi lietotājvārdu: ");
         p = stringIevade("Ievadi paroli: ");
-        l = stringIevade("Kāda būs lietotāja loma? (Spēlētājs | Redaktors): ");
+        l = stringIevade("Kāda būs lietotāja loma? (Spēlētājs(S) | Redaktors(R)): ");
 
         if (lv.length() < 3) cout << "Pārāk īss lietotājvārds!\n";
         if (lv.length() > 20) cout << "Pārāk garš lietotājvārds!\n";
         if (p.length() < 8) cout << "Pārāk īsa parole!\n";
         if (!saturCiparu(p)) cout << "Parolē ir jāiekļauj cipars!\n";
         if (!saturLieloBurtu(p)) cout << "Parolē ir jāiekļauj lielais burts!\n";
-        if (l != "Spēlētājs" && l != "Redaktors") cout << "Lietotājam jābūt vai nu spēlētājam vai arī redaktoram!\n";
+        if (!(l.length() == 1 && (toupper(l[0]) == 'S' || toupper(l[0]) == 'R'))) cout << "Lietotājam jābūt vai nu spēlētājam(S) vai arī redaktoram(R)!\n";
 
-    } while (lv.length() < 3 || lv.length() > 20 || p.length() < 8 || (!saturCiparu(p) || !saturLieloBurtu(p)) || l != "Spēlētājs" && l != "Redaktors");
+    } while (lv.length() < 3 || lv.length() > 20 || p.length() < 8 || (!saturCiparu(p) || !saturLieloBurtu(p)) ||
+        !(l.length() == 1 && (toupper(l[0]) == 'S' || toupper(l[0]) == 'R'))
+);
     pedejaisID = dabutPedejoId() + 1;
 
-    if (l == "Spēlētājs") {
+    if (l.length() == 1 && toupper(l[0]) == 'S') {
         lietotaji.push_back(new Speletajs(pedejaisID, lv, p));
         saglabatLietotajuDB(pedejaisID, lv, p, "Speletajs");
         cout << "Tika izveidots jauns spēlētāja profils\n";
     }
-    if (l == "Redaktors") {
+    if (l.length() == 1 && toupper(l[0]) == 'R') {
         cout << "Tika izveidots jauns Redaktora profils\n";
         lietotaji.push_back(new Redaktors(pedejaisID, lv, p));
         saglabatLietotajuDB(pedejaisID, lv, p, "Redaktors");
