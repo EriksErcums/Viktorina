@@ -13,4 +13,6 @@ int dabutSpelesId(std::vector<Spele>& speles, const std::string& teksts);
 int skaitluIevade(const std::string& teksts, int minVertiba);
 std::string stringIevade(const std::string& teksts);
 void uzUpperCase(std::string& teksts);
+std::string ievadiParoli(const std::string& teksts);
+
 #endif

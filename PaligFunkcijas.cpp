@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cctype>
 #include "Spele.h"
+#include <conio.h>
 
 using namespace std;
 
@@ -63,4 +64,25 @@ string stringIevade(const string& teksts) {
 
 void uzUpperCase(string& teksts){
     transform(teksts.begin(), teksts.end(), teksts.begin(), [](unsigned char c){ return std::toupper(c); });
+}
+
+// Paroles ievades funkcija ar ***** simboliem
+string ievadiParoli(const string& teksts) {
+    string parole;
+    char simbols;
+
+    cout << teksts;
+    while ((simbols = _getch()) != '\r') { // '\r' = Enter
+        if (simbols == '\b') {
+            if (!parole.empty()) {
+                parole.pop_back();
+                cout << "\b \b";
+            }
+        } else {
+            parole += simbols;
+            cout << '*';
+        }
+    }
+    cout << endl;
+    return parole;
 }

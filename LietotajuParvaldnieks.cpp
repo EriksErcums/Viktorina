@@ -14,30 +14,56 @@
 using namespace std;
 
 void LietotajuParvaldnieks::izveidotProfilu() {
-    string lv, p, l;
-    do {
+    string lv, p, p2, l;
+
+    bool derigs = false;
+    while (!derigs) {
+        //  Ievads tiek veikts no jauna katru reizi, ja ir nesakritība ar politikām
         lv = stringIevade("Ievadi lietotājvārdu: ");
-        p = stringIevade("Ievadi paroli: ");
+
+        do {
+            p = ievadiParoli("Ievadi paroli: ");
+            p2 = ievadiParoli("Ievadi paroli vēlreiz: ");
+            if (p != p2) cout << "Paroles nesakrīt! Mēģini vēlreiz.\n";
+        } while (p != p2);
+
+        derigs = true;
+        if (lv.length() < 3) {
+            cout << "Pārāk īss lietotājvārds!\n";
+            derigs = false;
+        }
+        if (lv.length() > 20) {
+            cout << "Pārāk garš lietotājvārds!\n";
+            derigs = false;
+        }
+        if (p.length() < 8) {
+            cout << "Pārāk īsa parole!\n";
+            derigs = false;
+        }
+        if (!saturCiparu(p)) {
+            cout << "Parolē ir jāiekļauj cipars!\n";
+            derigs = false;
+        }
+        if (!saturLieloBurtu(p)) {
+            cout << "Parolē ir jāiekļauj lielais burts!\n";
+            derigs = false;
+        }
+    }
+    // Loma tiek prasīta tikai tad, kad vārds un parole ir korekti
+    do {
         l = stringIevade("Kāda būs lietotāja loma? (Spēlētājs(S) | Redaktors(R)): ");
+        if (!(l.length() == 1 && (toupper(l[0]) == 'S' || toupper(l[0]) == 'R')))
+            cout << "Lietotājam jābūt vai nu spēlētājam(S) vai arī redaktoram(R)!\n";
+    } while (!(l.length() == 1 && (toupper(l[0]) == 'S' || toupper(l[0]) == 'R')));
 
-        if (lv.length() < 3) cout << "Pārāk īss lietotājvārds!\n";
-        if (lv.length() > 20) cout << "Pārāk garš lietotājvārds!\n";
-        if (p.length() < 8) cout << "Pārāk īsa parole!\n";
-        if (!saturCiparu(p)) cout << "Parolē ir jāiekļauj cipars!\n";
-        if (!saturLieloBurtu(p)) cout << "Parolē ir jāiekļauj lielais burts!\n";
-        if (!(l.length() == 1 && (toupper(l[0]) == 'S' || toupper(l[0]) == 'R'))) cout << "Lietotājam jābūt vai nu spēlētājam(S) vai arī redaktoram(R)!\n";
-
-    } while (lv.length() < 3 || lv.length() > 20 || p.length() < 8 || (!saturCiparu(p) || !saturLieloBurtu(p)) ||
-        !(l.length() == 1 && (toupper(l[0]) == 'S' || toupper(l[0]) == 'R'))
-);
     pedejaisID = dabutPedejoId() + 1;
 
-    if (l.length() == 1 && toupper(l[0]) == 'S') {
+    if (toupper(l[0]) == 'S') {
         lietotaji.push_back(new Speletajs(pedejaisID, lv, p));
         saglabatLietotajuDB(pedejaisID, lv, p, "Speletajs");
         cout << "Tika izveidots jauns spēlētāja profils\n";
     }
-    if (l.length() == 1 && toupper(l[0]) == 'R') {
+    if (toupper(l[0]) == 'R') {
         cout << "Tika izveidots jauns Redaktora profils\n";
         lietotaji.push_back(new Redaktors(pedejaisID, lv, p));
         saglabatLietotajuDB(pedejaisID, lv, p, "Redaktors");
@@ -46,7 +72,7 @@ void LietotajuParvaldnieks::izveidotProfilu() {
 
 Lietotajs* LietotajuParvaldnieks::pieslegties() {
     string lietotajvards = stringIevade("ievadi lietotājvārdu: ");
-    string parole = stringIevade("Ievadi paroli: ");
+    string parole = ievadiParoli("Ievadi paroli: ");
 
     sqlite3* db;
     sqlite3_stmt* stmt;
