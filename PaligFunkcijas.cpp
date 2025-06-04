@@ -37,11 +37,18 @@ int dabutSpelesId(vector<Spele>& speles, const string& teksts) {
     }
 }
 
-int skaitluIevade(const string& teksts, int minVertiba) {
+int skaitluIevade(const string &teksts, int minVertiba) {
     int vertiba;
     do {
         cout << teksts;
         cin >> vertiba;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ievadi veselu skaitli!\n";
+            continue;
+        }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         if (vertiba < minVertiba) {
             cout << "Skaitlim jābūt vismaz " << minVertiba << "!\n";
